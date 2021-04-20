@@ -21,6 +21,9 @@ jobs:
           java-version: '11'
           check-latest: true
 
+      - name: Generate dataGen
+        run: javac -g dataGen.java
+
       - name: Generate data
         run: java dataGen
 
