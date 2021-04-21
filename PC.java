@@ -5,6 +5,8 @@ public class PC implements java.io.Serializable
 {
    String os;
    String host;
+   String dns;
+   
    ArrayList<Login> login;
    ArrayList<String> prompt;
    
@@ -13,45 +15,6 @@ public class PC implements java.io.Serializable
    Disk disk;
    
    TreeMap<Integer,Server> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
-   
-   public static void main(String[] args)
-   {
-      String loginRaw = "root,toor,0;user,pass,1,;third,3,2,;";
-      
-      
-      ArrayList<String[]> accounts = new ArrayList<String[]>();
-      boolean loop = true;
-      while(loop)
-      {
-         int index = loginRaw.indexOf(';');
-         if(index == -1)
-            loop = false;
-         else
-         {
-            String newLogin = loginRaw.substring(0,index);  
-            String[] account = new String[3];
-            
-            for(int i=0; i<3; i++) //TODO: hardcoded, how does this handle an invalid config?
-            {
-               int index2 = newLogin.indexOf(',');
-               account[i] = newLogin.substring(0,index2);
-               newLogin = newLogin.substring(index2+1,newLogin.length());
-            }
-            accounts.add(account);  
-         }
-         loginRaw = loginRaw.substring(index+1,loginRaw.length());
-      }
-      
-      
-      for(int i=0; i<accounts.size(); i++)
-      {
-         for(int j=0; j<3; j++)
-         {
-            System.out.println(accounts.get(i)[j]);
-         }
-      }
-      
-   }
    
    public PC(String type, TreeMap<String,String> domains) //TODO this is a hack. AAAAAAAAAAAAAAH. Let dataGen customize PCs
    {
@@ -78,8 +41,11 @@ public class PC implements java.io.Serializable
       disk.add("/","bin",new Directory("bin",1,0));
       disk.add("/","boot",new Directory("boot",0,0));
       disk.add("/","home",new Directory("home",1,0));
-      disk.add("/home/","user",new Directory("user",1,1));
+         disk.add("/home/","user",new Directory("user",1,1));
+            disk.add("/home/user/","Downloads",new Directory("Downloads",1,1));
       disk.add("/","sys",new Directory("sys",0,0));
+      disk.add("/","srv",new Directory("srv",0,0));
+         disk.add("/srv/","http",new Directory("http",0,0));
       
       disk.add("/bin/","ls",new Command("ls",0));
       disk.add("/bin/","cd",new Command("cd",1)); 
@@ -149,10 +115,10 @@ public class PC implements java.io.Serializable
          login.add(new Login(account[0],account[1],Integer.parseInt(account[2])));
       }      
       
-      //Update system name (sysKernel) //TODO: perhaps have certain kernels lock/unlock features? Or maybe one upload a malicious kernel to anothers computer that is vulnerable?
-      /*unimplemented*/
-      
       //Update netconfig (DNS and whatnot)
+      dns = disk.get("/sys/netconfig").getBody();
+      
+      //Update system name (sysKernel) //TODO: perhaps have certain kernels lock/unlock features? Or maybe one upload a malicious kernel to anothers computer that is vulnerable?
       /*unimplemented*/
    }
    

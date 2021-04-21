@@ -286,7 +286,7 @@ public class script
             String address = "";
             int port = 80;
             
-            if(args.size() == 0)
+            if(args.size() == 0) //w/o arguments
             {
                util.clear();
                Scanner in = new Scanner(System.in);
@@ -295,18 +295,16 @@ public class script
                System.out.println("Please enter the address you wish to vist");   
                address = in.nextLine();
             }
-            else if(args.size() >= 1)
+            else if(args.size() >= 2) //domain
             {
                address = args.get(0);
-               if(args.size() >= 2)
+               if(args.size() >= 2) //if port is specified
                   port = Integer.parseInt(args.get(1));
+               
+               
             }
             
             //TODO, implement DNS when added
-            
-            //WINTHROP MIDORI
-            //CONCORD LEONARDOS
-            
             
             /*
             try
