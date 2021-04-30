@@ -1,26 +1,23 @@
 //import java.util.TreeMap;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class S_HTTP implements Server, java.io.Serializable
 {
    Disk webData;
+   Data directory;
    
-   public S_HTTP(Disk newWebData)
+   public S_HTTP(Data newDirectory)
    {
-      webData = newWebData;
+      webData = new Disk(newDirectory);
    }
    
    //TODO: IMPLEMENT SOME FORMS OF HTTP CODES?
    public Data serve(Data request)
    {      
-      if(request.getName().equals("get"))
-      {
-         File reply = new File("packet");
-                  
-         reply.setBody(webData.get(request.getBody()).getBody()); //TODO: nmake this more verbose it sucks to read
-         return reply;
-      }
+      if(request.getName().equals("packet"))
+         return webData.get(request.getBody());
       
-      return new File();
+      return new File("packet","404");
    }
 }

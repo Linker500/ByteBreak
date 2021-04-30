@@ -38,7 +38,7 @@ public class script
             for (String i : workDir.getData().keySet())
                output += i + " ";
             
-            return output+"\n";
+            return output;
          }
          
          case(1): //Change Directory "cd"
@@ -52,16 +52,16 @@ public class script
             else if(args.size() > 0)
             {
                if(workDir.getData().get(args.get(0)) == null)
-                  return "cd: No such directory\n";
+                  return "cd: No such directory";
                if(workDir.getData().get(args.get(0)).identify() == 1)
-                  return "cd: " + args.get(0) + ": Not a directory\n";
+                  return "cd: " + args.get(0) + ": Not a directory";
                if(workDir.getData().get(args.get(0)).getPermRead() < userPerm)
-                  return "cd: Read access to " + args.get(0) + " denied\n";
+                  return "cd: Read access to " + args.get(0) + " denied";
                
                dir.add(args.get(0));
                return "";
             }
-            return "cd: Unknown Error\n";
+            return "cd: Unknown Error";
          }
          
          case(2): //Concatanate "cat" "show" //TODO: show "compiled" non ASCII text when showing command
@@ -73,9 +73,9 @@ public class script
             for(int i=0; i<args.size(); i++)
             {
                if(workDir.getData().get(args.get(i)).getPermRead() < userPerm)
-                  output += "cat: Read access to " + args.get(0) + " denied\n";
+                  output += "cat: Read access to " + args.get(0) + " denied";
                else
-                  output += workDir.getData().get(args.get(i)).getBody()+"\n";
+                  output += workDir.getData().get(args.get(i)).getBody();
             }
             return output;
          }
@@ -83,7 +83,7 @@ public class script
          case(3): //Make "mk" "new"
          {
             if(permWrite < userPerm)
-               return "mk: Write access to " + workDir.getName() + " denied\n";
+               return "mk: Write access to " + workDir.getName() + " denied";
             
             if(args.size() == 0)
                workDir.getData().put("new_file",new File());
@@ -110,7 +110,7 @@ public class script
             for(int i=0; i<args.size(); i++)
             {
                if(workDir.getData().get(args.get(i)).getPermWrite() < userPerm)
-                  output += "rm: Write access to " + args.get(0) + " denied\n";
+                  output += "rm: Write access to " + args.get(0) + " denied";
                else
                   workDir.getData().remove(args.get(i));
             }
@@ -121,20 +121,20 @@ public class script
          case(5): //Move "mv" "move"
          {
             if(workDir.getData().get(args.get(0)).getPermRead() < userPerm)
-               return "mv: Read access to " + args.get(0) + " denied\n";
+               return "mv: Read access to " + args.get(0) + " denied";
             
             if(workDir.getData().get(args.get(0)).getPermWrite() < userPerm)
-               return "mv: Write access to " + args.get(0) + " denied\n";
+               return "mv: Write access to " + args.get(0) + " denied";
             
             if(workDir.getPermWrite() < userPerm)
-               return "mv: Write access to " + workDir.getName() + " denied\n";
+               return "mv: Write access to " + workDir.getName() + " denied";
             
             if(args.size() <2)
             {
                if(args.size() == 1)
-                  return "mv: Missing destination file argument.\n";
+                  return "mv: Missing destination file argument.";
                if(args.size() == 0)
-                  return "mv: Missing file argument.\n";
+                  return "mv: Missing file argument.";
             }
             workDir.getData().put(args.get(1),workDir.getData().get(args.get(0)));
             workDir.getData().remove(args.get(0));
@@ -144,10 +144,10 @@ public class script
          case(6): //Edit "ed" "mod" //TODO: prevent editing of command files
          {
             if(args.size() == 0)
-               return "ed: Missing target file argument.\n";
+               return "ed: Missing target file argument.";
            
             if(workDir.getData().get(args.get(0)).getPermWrite() < userPerm)
-               return "ed: Write access to " + args.get(0) + " denied\n";
+               return "ed: Write access to " + args.get(0) + " denied";
             
             if(args.size() == 1)
                workDir.getData().get(args.get(0)).setBody("");
@@ -164,17 +164,17 @@ public class script
          case(7): //Copy "cp" "copy"
          {
             if(workDir.getData().get(args.get(0)).getPermRead() < userPerm)
-               return "mv: Read access to " + args.get(0) + " denied\n";
+               return "mv: Read access to " + args.get(0) + " denied";
             
             if(workDir.getPermWrite() < userPerm)
-               return "mv: Write access to " + workDir.getName() + " denied\n";
+               return "mv: Write access to " + workDir.getName() + " denied";
             
             if(args.size() <2)
             {
                if(args.size() == 1)
-                  return "cp: Missing target file argument\n";
+                  return "cp: Missing target file argument";
                if(args.size() == 0)
-                  return "cp: Missing destination file argument\n";
+                  return "cp: Missing destination file argument";
             }
             
             workDir.getData().put(args.get(1),workDir.getData().get(args.get(0)));
@@ -184,11 +184,11 @@ public class script
          {
             //TODO: this is a TEMPERARY way of connecting. Use IP ADDRESSES or HOSTNAMES later!
             if(args.size() == 0)
-               return "ssh: Missing target system argument\n";
+               return "ssh: Missing target system argument";
             
             Shell shell = new Shell(inter);
             shell.start(args.get(0));
-            return "Connection closed\n";
+            return "Connection closed";
          }
          
          case(9): //network "net" "netcat"?
@@ -196,50 +196,46 @@ public class script
             if(args.size() < 3)
             {
                if(args.size() == 0)
-                  return "net: Missing target argument\n";
+                  return "net: Missing target argument";
                if(args.size() == 1)
-                  return "net: missiong port argument\n";
+                  return "net: missiong port argument";
                if(args.size() == 2)
-                  return "net: missing request argument\n";
+                  return "net: missing request argument";
             }
-            TreeMap<String,Data> request = new TreeMap<String,Data>();
-            for(int i=2; i<args.size(); i++)
-               request.put("packet"+i, new File("packet"+i,args.get(i)));
+            Data request = new File("packet",args.get(2));
             
             String address = args.get(0);
             
             PC target = inter.net.get(args.get(0));
             if(target == null)
-               return "net: host " + address + " not found\n";
+               return "net: host " + address + " not found";
             
             int port;
             try{port = Integer.parseInt(args.get(1));}
-            catch(Exception e){return "net: " + args.get(1) + " not a valid port\n";}
+            catch(Exception e){return "net: " + args.get(1) + " not a valid port";}
             
             
-            TreeMap<String,Data> reply = inter.net.get(address).serve(port,request);
-            
-            String output = "";
-            
-            for (String i : reply.keySet())
-               output += reply.get(i).getBody() + "\n";
-            return output;
+            Data reply = inter.net.get(address).serve(port,request);
+                        
+            return reply.getBody();
          }
          
          case(10): //Net Save "netsv"
          {
+            //TODO: what is this and why is it here
+            /*
             if(args.size() < 3)
             {
                if(args.size() == 0)
-                  return "net: Missing target argument\n";
+                  return "net: Missing target argument";
                if(args.size() == 1)
-                  return "net: missiong port argument\n";
+                  return "net: missiong port argument";
                if(args.size() == 2)
-                  return "net: missing request argument\n";
+                  return "net: missing request argument";
             }
             
             if(permWrite < userPerm)
-               return "mk: Write access to " + workDir.getName() + " denied\n";
+               return "mk: Write access to " + workDir.getName() + " denied";
             
             TreeMap<String,Data> request = new TreeMap<String,Data>();
             for(int i=2; i<args.size(); i++)
@@ -249,14 +245,14 @@ public class script
             
             PC target = inter.net.get(args.get(0));
             if(target == null)
-               return "net: host " + address + " not found\n";
+               return "net: host " + address + " not found";
             
             int port;
             try{port = Integer.parseInt(args.get(1));}
-            catch(Exception e){return "net: " + args.get(1) + " not a valid port\n";}
+            catch(Exception e){return "net: " + args.get(1) + " not a valid port";}
             
             
-            TreeMap<String,Data> reply = inter.net.get(address).serve(port,request);
+            Data reply = inter.net.get(address).serve(port,request);
             
             String output = "";
             
@@ -268,7 +264,9 @@ public class script
                workDir.getData().get("netsv").getData().put("packet"+inc,new File("packet"+inc,reply.get(i).getBody(),userPerm,userPerm));
                inc++;
             }
-            return "netsv: " +inc+ " packets saved\n";
+            return "netsv: " +inc+ " packets saved";
+            */
+            return "idk";
          }
          
          /* //TODO: move and implement this somewhere!!
@@ -312,10 +310,10 @@ public class script
                PC target = inter.net.get(address);
                
                try{return target.serve(port);}
-               catch(Exception e){return "Error: Access to port " + port + " denied!\n";}
+               catch(Exception e){return "Error: Access to port " + port + " denied!";}
             }
             catch(Exception e){
-               return "Error: Invalid Address.\n";}*/
+               return "Error: Invalid Address.";}*/
          }
          case(12): //Firebird "firebird"
          {

@@ -60,15 +60,15 @@ public class PC implements java.io.Serializable
       disk.add("/bin/","netsv",new Command("netsv",10));
       disk.add("/bin/","netexp",new Command("netexp",11));
             
-      //TODO: make these actually do things. Should be seperate class(es) that extend File
       disk.add("/sys/","hostname",new File("hostname","bytebox"));
       disk.add("/sys/","logins",new File("logins","root,toor,0,;user,pass,1,;"));
       disk.add("/sys/","netconfig",new File("netconfig"));
       disk.add("/sys/","sysKernel",new File("sysKernel"));
-                  
+      
       //Servers
       servers = new TreeMap<Integer,Server>();
       servers.put(7,new S_Ping()); //Ping server
+      servers.put(80,new S_HTTP(disk.get("/sys/"))); //HTTP server
       
       updateConfig();
    }
@@ -134,14 +134,11 @@ public class PC implements java.io.Serializable
    }
    
       
-   public TreeMap<String,Data> serve(int port, TreeMap<String,Data> request)
+   public Data serve(int port, Data request)
    {
-      TreeMap<String,Data> reply;
+      Data reply;
       if(servers.get(port) == null)
-      {
-         reply = new TreeMap<String,Data>();
-         reply.put("packet",new File("packet","Port access denied"));
-      }
+         reply = new File("packet","Port access denied");
       else
          reply = servers.get(port).serve(request);
       
