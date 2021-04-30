@@ -3,10 +3,9 @@ public class S_Test implements Server, java.io.Serializable //Perhaps make other
 {
    public S_Test(){}
    
-   public TreeMap<String,Data> serve(TreeMap<String,Data> request)  //Actual webserver content.Possibly 
+   public Data serve(Data request)  //Actual webserver content.Possibly 
    {
-      TreeMap<String,Data> reply = new TreeMap<String,Data>();
-      reply.put("packet",new File("packet","Your request was: " + request));
+      Data reply = new File("packet","Your request was: " + request.getBody());
       return reply;
    }
 }

@@ -9,21 +9,20 @@ public class S_DNS implements Server, java.io.Serializable
       domains = newDomains;
    }
    
-   public TreeMap<String,Data> serve(TreeMap<String,Data> request)
+   public Data serve(Data request)
    {
-      TreeMap<String,Data> reply = new TreeMap<String,Data>();
+      Data reply = new File("packet");
       
-      int inc = 0;
-      for (String i : request.keySet())
+      reply.setBody("Error: invalid domain");
+      for(String i : domains.keySet())
       {
-         reply.put(i, new File(i,"Error: invalid domain"));
-         for (String j : domains.keySet())
+         if(request.getBody().equals(i))
          {
-            if(request.get(i).getBody().equals(j))
-               reply.get(i).setBody(domains.get(j));
+            reply.setBody(domains.get(i));
+            return reply;
          }
-         inc++;
-      }
+      }                        
       return reply;
+
    }
 }

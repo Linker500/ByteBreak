@@ -13,9 +13,10 @@ s#k0
 s#j0
 s#l0
 !113;u
-a0	b68	c255	f%\011compiled%sByteBreak.jar	g%\011ByteBreak.zip	hManifest-Version\0111.0\011Main-Class\011ByteBreak!307;g
+a0	b68	c255	f%\011compiled%sByteBreak.jar	g%\011ByteBreak.zip	hManifest-Version\0111.0\011Main-Class\011ByteBreak!324;g
 %\011Player.java
 %\011PC.java
+%\011S_HTTP.java
 %\011S_Test.java
 %\011Command.java
 %\011util.java
@@ -32,9 +33,10 @@ a0	b68	c255	f%\011compiled%sByteBreak.jar	g%\011ByteBreak.zip	hManifest-Version\
 %\011Shell.java
 %\011script.java
 %\011ByteBoxAccount.java
-!307;f
+!324;f
 %\011Player.java
 %\011PC.java
+%\011S_HTTP.java
 %\011S_Test.java
 %\011Command.java
 %\011util.java
