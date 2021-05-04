@@ -1,5 +1,11 @@
 # ByteBreak
 Personal shitcode game
 THIS PROJECT IS NOT END USER READY!!!
-You can try to run it, and if you make it work good on you.
-But don't waste your time unless it is worth it.
+
+## Running
+
+1. `git clone https://github.com/Linker500/ByteBreak && cd ByteBreak`
+2. `javac **/*.java`
+3. `mkdir ByteBreak/data`
+4. `java ByteBreak.dataGen`
+5. `java ByteBreak.ByteBreak`
