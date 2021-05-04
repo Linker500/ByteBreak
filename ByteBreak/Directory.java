@@ -2,7 +2,7 @@ package ByteBreak;
 import ByteBreak.pcs.PC;
 import java.util.TreeMap;
 import java.util.*;
-public class Directory implements Data, java.io.Serializable
+public class Directory implements Data
 {
    //TODO be able to access folders by their string names instead of index!!!
    private String name;

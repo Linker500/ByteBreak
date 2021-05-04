@@ -1,9 +1,9 @@
 name: Build Project
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -21,11 +21,11 @@ jobs:
           java-version: '11'
           check-latest: true
 
-      - name: Generate dataGen
-        run: javac -g dataGen.java && mkdir data
+      - name: Compile dataGen
+        run: javac -g ByteBreak/dataGen.java && mkdir ByteBreak/data
 
       - name: Generate data
-        run: java dataGen
+        run: java ByteBreak/dataGen
 
-      - name: Build project
-        run: javac -g ByteBreak.java
+      - name: Compile project
+        run: javac -g **/*.java
