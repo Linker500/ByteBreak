@@ -1,3 +1,6 @@
+package ByteBreak;
+import ByteBreak.*;
+import ByteBreak.pcs.*;
 import java.util.*;
 public class Shell
 {
@@ -47,7 +50,7 @@ public class Shell
       boolean loop = true;
       while(loop)
       {
-         System.out.print("\n["+pc.login.get(sess).user+"@"+pc.host+"]# "); //TODO: this should be a variable per PC.
+         System.out.print("["+pc.login.get(sess).user+"@"+pc.host+"]# "); //TODO: this should be a variable per PC.
          
          //Parsing
          String command;

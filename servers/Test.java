@@ -1,7 +1,9 @@
+package ByteBreak.servers;
+import ByteBreak.*;
 import java.util.TreeMap;
-public class S_Test implements Server, java.io.Serializable //Perhaps make other servers implement this instead of extend?
+public class Test implements Server, java.io.Serializable //Perhaps make other servers implement this instead of extend?
 {
-   public S_Test(){}
+   public Test(){}
    
    public Data serve(Data request)  //Actual webserver content.Possibly 
    {

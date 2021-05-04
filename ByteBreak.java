@@ -1,3 +1,5 @@
+package ByteBreak;
+import ByteBreak.pcs.PC;
 import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -182,7 +184,7 @@ public class ByteBreak
    {
       inter = null;
       try {
-         FileInputStream fileIn = new FileInputStream("./data/inter.dat");
+         FileInputStream fileIn = new FileInputStream("ByteBreak/data/inter.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          inter = (Network) in.readObject();
          in.close();
@@ -197,7 +199,7 @@ public class ByteBreak
       
       userAcc = null;
       try {
-         FileInputStream fileIn = new FileInputStream("./data/bytebox.dat");
+         FileInputStream fileIn = new FileInputStream("ByteBreak/data/bytebox.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          userAcc = (ByteBoxAccount) in.readObject();
          in.close();

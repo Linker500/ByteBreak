@@ -1,7 +1,9 @@
+package ByteBreak.servers;
+import ByteBreak.*;
 import java.util.TreeMap;
-public class S_Ping implements Server, java.io.Serializable
+public class Ping implements Server, java.io.Serializable
 {
-   public S_Ping(){}
+   public Ping(){}
    
    public Data serve(Data request)
    {

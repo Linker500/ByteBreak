@@ -1,3 +1,7 @@
+package ByteBreak;
+import ByteBreak.pcs.*;
+import ByteBreak.servers.*;
+import ByteBreak.*;
 import java.util.TreeMap;
 import java.io.*;
 public class dataGen
@@ -52,7 +56,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("./data/bytebox.dat");
+         new FileOutputStream("ByteBreak/data/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -62,13 +66,14 @@ public class dataGen
       catch (IOException i)
       {
          i.printStackTrace();
+         System.out.println(" AccountGen Export FAILED!");
       }
       
       
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("./data/inter.dat");
+         new FileOutputStream("ByteBreak/data/inter.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(inter);
          out.close();
@@ -78,8 +83,8 @@ public class dataGen
       catch (IOException i)
       {
          i.printStackTrace();
+         System.out.println("InternetGen Export FAILED!");
       }
-      System.out.println("All Exports Success!");
    }
    
    private static String ipGen()

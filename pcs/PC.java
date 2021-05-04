@@ -1,20 +1,28 @@
+package ByteBreak.pcs;
+import ByteBreak.*; //Game Utils
+import ByteBreak.servers.*;
 import java.util.TreeMap;
 import java.util.*;
 
 public class PC implements java.io.Serializable
 {
-   String os;
-   String host;
+   public String os;
+   public String host;
    String dns;
    
-   ArrayList<Login> login;
-   ArrayList<String> prompt;
+   public ArrayList<Login> login;
+   public ArrayList<String> prompt;
    
    //TreeMap<String,Data> disk;
    //Data disk;
-   Disk disk;
+   public Disk disk;
    
    TreeMap<Integer,Server> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
+   
+   public PC()
+   {
+      bytebox();
+   }
    
    public PC(String type, TreeMap<String,String> domains) //TODO this is a hack. AAAAAAAAAAAAAAH. Let dataGen customize PCs
    {
@@ -67,8 +75,8 @@ public class PC implements java.io.Serializable
       
       //Servers
       servers = new TreeMap<Integer,Server>();
-      servers.put(7,new S_Ping()); //Ping server
-      servers.put(80,new S_HTTP(disk.get("/sys/"))); //HTTP server
+      servers.put(7,new Ping()); //Ping server
+      servers.put(80,new HTTP(disk.get("/sys/"))); //HTTP server
       
       updateConfig();
    }

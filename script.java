@@ -1,3 +1,5 @@
+package ByteBreak;
+import ByteBreak.pcs.PC;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -47,7 +49,7 @@ public class script
             {
                if(dir.size() > 0)
                   dir.remove(dir.size()-1);
-               return "";
+               return "\n";
             }
             else if(args.size() > 0)
             {
@@ -59,7 +61,7 @@ public class script
                   return "cd: Read access to " + args.get(0) + " denied";
                
                dir.add(args.get(0));
-               return "";
+               return "\n";
             }
             return "cd: Unknown Error";
          }

@@ -1,13 +1,15 @@
+package ByteBreak.servers;
+import ByteBreak.*;
 //import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class S_HTTP implements Server, java.io.Serializable
+public class HTTP implements Server, java.io.Serializable
 {
    Disk webData;
    Data directory;
    
-   public S_HTTP(Data newDirectory)
+   public HTTP(Data newDirectory)
    {
       webData = new Disk(newDirectory);
    }

@@ -1,10 +1,12 @@
+package ByteBreak.servers;
+import ByteBreak.*;
 import java.util.TreeMap;
 
-public class S_DNS implements Server, java.io.Serializable
+public class DNS implements Server, java.io.Serializable
 {
    TreeMap<String,String> domains = new TreeMap<String,String>();
    
-   public S_DNS(TreeMap<String,String> newDomains)
+   public DNS(TreeMap<String,String> newDomains)
    {
       domains = newDomains;
    }
