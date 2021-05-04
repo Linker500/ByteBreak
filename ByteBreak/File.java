@@ -2,7 +2,7 @@ package ByteBreak;
 import ByteBreak.pcs.PC;
 import java.util.TreeMap;
 import java.util.*;
-public class File implements Data, java.io.Serializable
+public class File implements Data
 {
    String name;
    int permRead;
