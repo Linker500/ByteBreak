@@ -10,7 +10,6 @@ public class dataGen
       ByteBoxAccount userAcc = new ByteBoxAccount(false,"0");
       Network inter = new Network();
       
-      
      /*\
       #.#.#.# Bad DNS
       1.1.1.1 Normal DNS
@@ -39,13 +38,13 @@ public class dataGen
      \*/
       
       TreeMap<String,String> domains = new TreeMap<String,String>();
-      domains.put("cloudflare.com","1.1.1.1");
+      domains.put("dns.net","1.1.1.1");
       
       //inter.net.put("1.1.1.1",new PC("nixDns",null,null,domains)); //DNS
       
-      inter.net.put("0",new PC("bytebox",null)); //TODO: temp starter PC for testing remove this when able.
-      inter.net.put("1",new PC("bytebox2",null));
-      //inter.net.put(ipGen(),new PC("dos","user","pass"));
+      inter.net.put("0",new Dev()); //TODO: temp starter PC for testing remove this when able.
+      inter.net.put("1",new ByteBox());
+      inter.net.put("1.1.1.1",new DnsHost(domains));
       
       export(userAcc,inter);
    }

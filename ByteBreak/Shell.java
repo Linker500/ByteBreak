@@ -34,6 +34,7 @@ public class Shell
       int newSess = pc.login(user,pass);
       if(newSess > -1)
       {
+         System.out.println();
          sess = newSess;
          return true;
       }

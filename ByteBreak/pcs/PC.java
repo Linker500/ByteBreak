@@ -4,83 +4,18 @@ import ByteBreak.servers.*;
 import java.util.TreeMap;
 import java.util.*;
 
-public class PC implements java.io.Serializable
+public abstract class PC implements java.io.Serializable
 {
    public String os;
    public String host;
-   String dns;
+   public String dns;
    
    public ArrayList<Login> login;
    public ArrayList<String> prompt;
-   
-   //TreeMap<String,Data> disk;
-   //Data disk;
    public Disk disk;
    
    TreeMap<Integer,Server> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
-   
-   public PC()
-   {
-      bytebox();
-   }
-   
-   public PC(String type, TreeMap<String,String> domains) //TODO this is a hack. AAAAAAAAAAAAAAH. Let dataGen customize PCs
-   {
-      if(type.equals("bytebox"))
-         bytebox();
-      /*if(type.equals("dos"))
-         dos(user,pass);
-      if(type.equals("nixDns"))
-         nixDns(domains);*/
-   }
-   
-   public void bytebox() //TODO: this is broken now that login files are a thing
-   {  
-      //System Info
-      os = "Byte-Box 0.9.2";
-      //ipv4 = new int[]{192,168,1,1};
-      
-      //prompt.add("["+pc.login.get(sess.get(0)).user+"@"+pc.host+"]# ");
-      //prompt.add("["+pc.login.get(sess.get(0)).user+"@"+pc.host+"]$ ");
-      
-      //Initialize Disk  
-      //TODO: should files have their names in them??
-      disk = new Disk();
-      disk.add("/","bin",new Directory("bin",1,0));
-      disk.add("/","boot",new Directory("boot",0,0));
-      disk.add("/","home",new Directory("home",1,0));
-         disk.add("/home/","user",new Directory("user",1,1));
-            disk.add("/home/user/","Downloads",new Directory("Downloads",1,1));
-      disk.add("/","sys",new Directory("sys",0,0));
-      disk.add("/","srv",new Directory("srv",0,0));
-         disk.add("/srv/","http",new Directory("http",0,0));
-      
-      disk.add("/bin/","ls",new Command("ls",0));
-      disk.add("/bin/","cd",new Command("cd",1)); 
-      disk.add("/bin/","cat",new Command("cat",2));
-      disk.add("/bin/","mk",new Command("mk",3));
-      disk.add("/bin/","rm",new Command("rm",4));
-      disk.add("/bin/","mv",new Command("mv",5));
-      disk.add("/bin/","ed",new Command("ed",6));
-      disk.add("/bin/","cp",new Command("cp",7));
-      disk.add("/bin/","ssh",new Command("ssh",8));
-      disk.add("/bin/","net",new Command("net",9));
-      disk.add("/bin/","netsv",new Command("netsv",10));
-      disk.add("/bin/","netexp",new Command("netexp",11));
             
-      disk.add("/sys/","hostname",new File("hostname","bytebox"));
-      disk.add("/sys/","logins",new File("logins","root,toor,0,;user,pass,1,;"));
-      disk.add("/sys/","netconfig",new File("netconfig"));
-      disk.add("/sys/","sysKernel",new File("sysKernel"));
-      
-      //Servers
-      servers = new TreeMap<Integer,Server>();
-      servers.put(7,new Ping()); //Ping server
-      servers.put(80,new HTTP(disk.get("/sys/"))); //HTTP server
-      
-      updateConfig();
-   }
-   
    public void updateConfig()
    {
       //Update hostname
@@ -124,7 +59,7 @@ public class PC implements java.io.Serializable
       }      
       
       //Update netconfig (DNS and whatnot)
-      dns = disk.get("/sys/netconfig").getBody();
+      //dns = disk.get("/sys/netconfig").getBody();
       
       //Update system name (sysKernel) //TODO: perhaps have certain kernels lock/unlock features? Or maybe one upload a malicious kernel to anothers computer that is vulnerable?
       /*unimplemented*/

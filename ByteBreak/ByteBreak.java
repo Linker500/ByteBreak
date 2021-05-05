@@ -7,9 +7,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ByteBreak.pcs.PC;
+import ByteBreak.pcs.*;
+
 public class ByteBreak
-{
+{   
    static Network inter;
    static ByteBoxAccount userAcc;
    
@@ -25,15 +26,14 @@ public class ByteBreak
          Scanner in = new Scanner(System.in);
          util.clear();
          System.out.println("Welcome to ByteBox! What would you like to do?");
-         util.stop(1000);
+         util.stop(500);
          System.out.println("1. Connect to my ByteBox");
          System.out.println("2. Manage my ByteBox");
          System.out.println("3. Exit");
-         util.stop(250);
          System.out.print(">");
          String input = in.nextLine();
          
-         if(input.equals("1"))
+         if(input.equals("1")) //TODO: add an if statement for a delay on failure to show access denied or something
             connect();
          
          else if(input.equals("2"))
@@ -44,11 +44,11 @@ public class ByteBreak
          
          else
          {
-            System.out.println("Invalid option!");
+            System.out.print("\nInvalid option!");
             util.stop(1000);
          }
       }
-      System.out.println("Thank you for using ByteBox! See you soon.");
+      System.out.println("\nThank you for using ByteBox! See you soon.");
    }
    
    private static void connect()
@@ -68,15 +68,11 @@ public class ByteBreak
          Scanner in = new Scanner(System.in);
          util.clear();
          System.out.println("How would you like to Manage your ByteBox?");
-         util.stop(1000);
+         util.stop(500);
          System.out.println("1. Recover my ByteBox login.");
-         util.stop(500);
          System.out.println("2. Format my ByteBox.");
-         util.stop(500);
          System.out.println("3. Change my ByteBox subscription.");
-         util.stop(500);
          System.out.println("4. Delete my ByteBox account.");
-         util.stop(500);
          System.out.print(">");
          String input = in.nextLine();
          
@@ -84,19 +80,18 @@ public class ByteBreak
          {
             util.clear();
             System.out.println("We are fetching your login. Please wait a moment.");
-            util.stop(5000);
+            util.stop(10000);
             System.out.println("Sorry for the wait, your logins are:");
-            util.stop(250);
+            util.stop(1000);
             ArrayList<Login> login = inter.net.get(userAcc.ip).login;
             for(int i=0; i<login.size(); i++)
             {
-               util.stop(250);
                System.out.println(i+": "+login.get(i).user+" "+login.get(i).pass);
             }
             util.stop(1000);
             System.out.println("Write this down!");
             util.stop(1000);
-            System.out.println("Press enter when you are finished.");
+            System.out.println("\n(Press enter when you are finished).");
             in.nextLine();
             return;
          }
@@ -104,33 +99,32 @@ public class ByteBreak
          {
             util.clear();
             System.out.println("Are you ABSOLUTELY SURE you want to format your ByteBox?");
-            util.stop(500);
+            util.stop(2000);
             System.out.println("ALL DATA WILL BE LOST.");
-            util.stop(500);
+            util.stop(2000);
             System.out.println("We DO NOT KEEP BACKUPS.");
-            util.stop(500);
+            util.stop(2000);
             System.out.println("This action is IRREVERSIBLE.");
-            util.stop(500);
+            util.stop(2000);
             System.out.println("y/n");
             System.out.print(">");
             input = in.nextLine();
             
             if(input.equals("y"))
             {
-               System.out.println("ARE YOU ABSOLUTELY SURE?");
-               util.stop(500);
+               System.out.println("Will you regret this?");
                System.out.println("y/n");
                System.out.print(">");
                input = in.nextLine();
-               if(input.equals("y"))
+               if(input.equals("n"))
                {
                   System.out.println("Alright, just remember we warned you...");
-                  util.stop(1000);
+                  util.stop(2000);
                   System.out.println("Formating ByteBox... This will take a moment.");
                   inter.net.remove(userAcc.ip);
                   userAcc.firstTime = true;
                   save();
-                  util.stop(5000);
+                  util.stop(20000);
                   System.out.println("ByteBox deleted!");
                   util.stop(1000);
                   return;
@@ -142,7 +136,7 @@ public class ByteBreak
          }
          else
          {
-            System.out.println("Invalid option!");
+            System.out.print("\nInvalid option!");
             util.stop(1000);
          }
       }
@@ -170,18 +164,18 @@ public class ByteBreak
       
       String ipAddress = ipGen();
       userAcc.ip = ipAddress;
-      PC pc = new PC("bytebpx",null); //Generate PC
+      PC pc = new ByteBox(); //Generate PC
       pc.disk.get("/sys/logins/").setBody("root,toor,0,;"+user+","+pass+","+"1,;");
       inter.net.put(ipAddress,pc); //add PC
       
       
-      util.stop(10000);
+      util.stop(30000);
       System.out.println("Done! You can connect to your machine in the next menu.");
       util.stop(2500);
       System.out.println("Have a nice day!");
       userAcc.firstTime = false;
       save();
-      util.stop(1000);
+      util.stop(2000);
    }
    
    //TODO: make clean error message if save file is not found.
@@ -222,7 +216,7 @@ public class ByteBreak
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("./data/bytebox.dat");
+         new FileOutputStream("ByteBreak/data/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -231,14 +225,13 @@ public class ByteBreak
       catch (IOException i)
       {
          i.printStackTrace();
-         System.out.println("KERNEL PANIC!!!"); //A Kernel panic screen would be hilarious. 
       }
       
       
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("./data/inter.dat");
+         new FileOutputStream("ByteBreak/data/inter.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(inter);
          out.close();
@@ -247,20 +240,10 @@ public class ByteBreak
       catch (IOException i)
       {
          i.printStackTrace();
-         System.out.println("KERNEL PANIC!!!");
       }
    }
    
-   // private static void util.stop(long delay)
-//    {
-//       long end = System.currentTimeMillis() + delay;
-//       
-//       while(end>System.currentTimeMillis()){}
-//    }
-//    
-//    private static void clear(){System.out.print("");}
-//    // public static void clear(){System.out.print("\033[H\033[2J");}
-   
+   //TODO: should this be here? Maybe in utils?
    private static String ipGen()
    {
       int a = (int)(Math.random()*256);
