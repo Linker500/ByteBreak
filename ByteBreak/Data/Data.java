@@ -4,15 +4,42 @@ import ByteBreak.Network;
 import ByteBreak.PC.PC;
 import java.util.TreeMap;
 import java.util.ArrayList;
-public interface Data extends java.io.Serializable
+public abstract class Data implements java.io.Serializable
 {
-   public int identify();
-   public String run(ArrayList<String> dir, PC pc, ArrayList<String> args, Network inter, int sess); //TODO: Clean this up with "dir" array, when I actually clean up the "main" class
-   public String getName();
-   public String getBody();
-   public void setName(String newName);
-   public void setBody(String newBody);
-   public TreeMap<String,Data> getData();
-   public int getPermRead();
-   public int getPermWrite();
+   public String name;
+   public String body;
+   
+   public int permRead;
+   public int permWrite;
+   
+   public TreeMap<String,Data> data;
+   
+   public Data()
+   {
+      name = "file";
+      body = "";
+      permRead = 0;
+      permWrite = 0;
+   }
+   
+   public Data(String newName)
+   {
+      name = newName;
+      body = "";
+      permRead = 0;
+      permWrite = 0;
+   }
+   
+   public Data(String newName, int newPermRead, int newPermWrite)
+   {
+      name = newName;
+      body = "";
+      permRead = newPermRead;
+      permWrite = newPermWrite;
+   }
+   
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   {
+      return "";
+   }
 }

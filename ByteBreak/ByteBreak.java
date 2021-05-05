@@ -166,7 +166,7 @@ public class ByteBreak
       String ipAddress = ipGen();
       userAcc.ip = ipAddress;
       PC pc = new ByteBox(); //Generate PC
-      pc.disk.get("/sys/logins/").setBody("root,toor,0,;"+user+","+pass+","+"1,;");
+      pc.disk.get("/sys/logins/").body = "root,toor,0,;"+user+","+pass+","+"1,;";
       inter.net.put(ipAddress,pc); //add PC
       
       
@@ -183,7 +183,7 @@ public class ByteBreak
    private static void load()
    {
       inter = null;
-      try 
+      try
       {
          FileInputStream fileIn = new FileInputStream("ByteBreak/savedata/inter.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);

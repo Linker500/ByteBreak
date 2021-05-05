@@ -1,6 +1,6 @@
 package ByteBreak.PC;
 import ByteBreak.Data.Data;
-import ByteBreak.Data.File.Text;
+import ByteBreak.Data.File.File;
 import ByteBreak.*; //Game Utils
 import ByteBreak.Service.*;
 import java.util.TreeMap;
@@ -21,12 +21,12 @@ public abstract class PC implements java.io.Serializable
    public void updateConfig()
    {
       //Update hostname
-      host = disk.get("/sys/hostname/").getBody();
+      host = disk.get("/sys/hostname/").body;
       
       //Update logins
       ArrayList<String[]> accounts = new ArrayList<String[]>();
       {
-         String loginRaw = disk.get("/sys/logins/").getBody();
+         String loginRaw = disk.get("/sys/logins/").body;
          //Takes loginRaw, and splits it into accounts (ends with ";") and then those accounts into usernames, passwords, and permission level respectively (ends with ",")
          //TODO: make this do stuff with invalid login file syntax?
          boolean loop = true;
@@ -61,7 +61,7 @@ public abstract class PC implements java.io.Serializable
       }      
       
       //Update netconfig (DNS and whatnot)
-      //dns = disk.get("/sys/netconfig").getBody();
+      //dns = disk.get("/sys/netconfig").body;
       
       //Update system name (sysKernel) //TODO: perhaps have certain kernels lock/unlock features? Or maybe one upload a malicious kernel to anothers computer that is vulnerable?
       /*unimplemented*/
@@ -83,7 +83,7 @@ public abstract class PC implements java.io.Serializable
    {
       Data reply;
       if(servers.get(port) == null)
-         reply = new Text("packet","Port access denied");
+         reply = new File("packet","Port access denied");
       else
          reply = servers.get(port).serve(request);
       
@@ -124,11 +124,11 @@ public void dos(String user, String pass)
       disk.add("/bin/","netsv",new Command("netsv",10));
       disk.add("/bin/","netexp",new Command("netexp",11));
       
-      //TODO: make these actually do things. Should be seperate class(es) that extend Text
-      disk.add("/sys/","hostname",new Text("hostname"));
-      disk.add("/sys/","logins",new Text("logins"));
-      disk.add("/sys/","netconfig",new Text("netconfig"));
-      disk.add("/sys/","sysKernel",new Text("sysKernel"));
+      //TODO: make these actually do things. Should be seperate class(es) that extend File
+      disk.add("/sys/","hostname",new File("hostname"));
+      disk.add("/sys/","logins",new File("logins"));
+      disk.add("/sys/","netconfig",new File("netconfig"));
+      disk.add("/sys/","sysKernel",new File("sysKernel"));
       
       //User accounts
       login = new ArrayList<Login>();
@@ -170,11 +170,11 @@ public void nixDns(TreeMap<String,String> domains)
       disk.add("/bin/","netsv",new Command("netsv",10));
       disk.add("/bin/","netexp",new Command("netexp",11));
             
-      //TODO: make these actually do things. Should be seperate class(es) that extend Text
-      disk.add("/sys/","hostname",new Text("hostname"));
-      disk.add("/sys/","logins",new Text("logins"));
-      disk.add("/sys/","netconfig",new Text("netconfig"));
-      disk.add("/sys/","sysKernel",new Text("sysKernel"));
+      //TODO: make these actually do things. Should be seperate class(es) that extend File
+      disk.add("/sys/","hostname",new File("hostname"));
+      disk.add("/sys/","logins",new File("logins"));
+      disk.add("/sys/","netconfig",new File("netconfig"));
+      disk.add("/sys/","sysKernel",new File("sysKernel"));
 
       
       //User accounts

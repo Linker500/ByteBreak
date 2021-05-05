@@ -1,7 +1,13 @@
 package ByteBreak;
 import ByteBreak.*;
 import ByteBreak.PC.*;
-import java.util.*;
+import ByteBreak.Data.File.Executable.*;
+
+import java.util.ArrayList;
+import java.util.TreeMap;
+import java.util.Scanner;
+import java.util.Collections;
+
 public class Shell
 {
    Network inter;

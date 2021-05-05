@@ -1,6 +1,6 @@
 package ByteBreak.Service;
 import ByteBreak.Data.Data;
-import ByteBreak.Data.File.Text;
+import ByteBreak.Data.File.File;
 import java.util.TreeMap;
 public class Ping implements Service
 {
@@ -8,7 +8,7 @@ public class Ping implements Service
    
    public Data serve(Data request)
    {
-      Data reply = new Text("packet","ping");
+      Data reply = new File("packet","ping");
       return reply;
    }
 }

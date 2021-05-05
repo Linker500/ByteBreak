@@ -38,13 +38,13 @@ public class Disk implements java.io.Serializable
    public void add(String pathString, String name, Data newData)
    { //TODO: safety check if file!!!!
       Data directory = get(pathString);
-      directory.getData().put(name,newData);
+      directory.data.put(name,newData);
    }
    
    public void add(String[] path, String name, Data newData) //Directory string version
    { //TODO: safety check if file!!!!
       Data directory = get(path);
-      directory.getData().put(name,newData);
+      directory.data.put(name,newData);
    }
 
    
@@ -56,7 +56,7 @@ public class Disk implements java.io.Serializable
 
       for(int i=0; i<path.length; i++) //TODO: add safety if directory does not exist or is a file!!!!
       {
-         directory = directory.getData().get(path[i]);
+         directory = directory.data.get(path[i]);
       }
       
       return directory;
@@ -74,7 +74,7 @@ public class Disk implements java.io.Serializable
 
       for(int i=0; i<path.size(); i++)
       {
-         directory = directory.getData().get(path.get(i));
+         directory = directory.data.get(path.get(i));
       }
       
       return directory;

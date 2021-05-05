@@ -1,6 +1,6 @@
 package ByteBreak.Service;
 import ByteBreak.Data.Data;
-import ByteBreak.Data.File.Text;
+import ByteBreak.Data.File.File;
 import java.util.TreeMap;
 
 public class DNS implements Service
@@ -14,14 +14,14 @@ public class DNS implements Service
    
    public Data serve(Data request)
    {
-      Data reply = new Text("packet");
+      Data reply = new File("packet");
       
-      reply.setBody("Error: invalid domain");
+      reply.body = "Error: invalid domain";
       for(String i : domains.keySet())
       {
-         if(request.getBody().equals(i))
+         if(request.body.equals(i))
          {
-            reply.setBody(domains.get(i));
+            reply.body = domains.get(i);
             return reply;
          }
       }                        

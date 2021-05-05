@@ -2,7 +2,7 @@ package ByteBreak.Service;
 import ByteBreak.Disk;
 import ByteBreak.Data.Data;
 import ByteBreak.Data.Directory;
-import ByteBreak.Data.File.Text;
+import ByteBreak.Data.File.File;
 //import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -20,9 +20,9 @@ public class HTTP implements Service
    //TODO: IMPLEMENT SOME FORMS OF HTTP CODES?
    public Data serve(Data request)
    {      
-      if(request.getName().equals("packet"))
-         return webData.get(request.getBody());
+      if(request.name.equals("packet"))
+         return webData.get(request.body);
       
-      return new Text("packet","404");
+      return new File("packet","404");
    }
 }

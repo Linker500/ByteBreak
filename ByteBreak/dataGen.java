@@ -43,7 +43,7 @@ public class dataGen
       //inter.net.put("1.1.1.1",new PC("nixDns",null,null,domains)); //DNS
       
       inter.net.put("0",new Dev()); //TODO: temp starter PC for testing remove this when able.
-      inter.net.put("1",new ByteBox());
+      //inter.net.put("1",new ByteBox());
       inter.net.put("1.1.1.1",new DnsHost(domains));
       
       export(userAcc,inter);
