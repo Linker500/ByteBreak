@@ -1,8 +1,9 @@
-package ByteBreak.servers;
-import ByteBreak.*;
+package ByteBreak.Service;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
 import java.util.TreeMap;
 
-public class DNS implements Server, java.io.Serializable
+public class DNS implements Service
 {
    TreeMap<String,String> domains = new TreeMap<String,String>();
    
@@ -13,7 +14,7 @@ public class DNS implements Server, java.io.Serializable
    
    public Data serve(Data request)
    {
-      Data reply = new File("packet");
+      Data reply = new Text("packet");
       
       reply.setBody("Error: invalid domain");
       for(String i : domains.keySet())

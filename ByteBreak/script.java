@@ -1,5 +1,7 @@
 package ByteBreak;
-import ByteBreak.pcs.PC;
+import ByteBreak.PC.PC;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class script
@@ -87,11 +89,11 @@ public class script
                return "mk: Write access to " + workDir.getName() + " denied";
             
             if(args.size() == 0)
-               workDir.getData().put("new_file",new File());
+               workDir.getData().put("new_file",new Text());
             else if(args.size() == 1)
-               workDir.getData().put(args.get(0),new File(args.get(0)));
+               workDir.getData().put(args.get(0),new Text(args.get(0)));
             else if(args.size() == 2)
-               workDir.getData().put(args.get(0),new File(args.get(0),args.get(1)));
+               workDir.getData().put(args.get(0),new Text(args.get(0),args.get(1)));
             else if(args.size() > 2)
             {
                String edit = args.get(1);
@@ -203,7 +205,7 @@ public class script
                if(args.size() == 2)
                   return "net: missing request argument";
             }
-            Data request = new File("packet",args.get(2));
+            Data request = new Text("packet",args.get(2));
             
             String address = args.get(0);
             
@@ -240,7 +242,7 @@ public class script
             
             TreeMap<String,Data> request = new TreeMap<String,Data>();
             for(int i=2; i<args.size(); i++)
-               request.put("packet"+i, new File("packet"+i,args.get(i)));
+               request.put("packet"+i, new Text("packet"+i,args.get(i)));
             
             String address = args.get(0);
             
@@ -262,7 +264,7 @@ public class script
             int inc = 0;           
             for (String i : reply.keySet())
             {
-               workDir.getData().get("netsv").getData().put("packet"+inc,new File("packet"+inc,reply.get(i).getBody(),userPerm,userPerm));
+               workDir.getData().get("netsv").getData().put("packet"+inc,new Text("packet"+inc,reply.get(i).getBody(),userPerm,userPerm));
                inc++;
             }
             return "netsv: " +inc+ " packets saved";

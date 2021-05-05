@@ -1,10 +1,13 @@
-package ByteBreak.servers;
-import ByteBreak.*;
+package ByteBreak.Service;
+import ByteBreak.Disk;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.Directory;
+import ByteBreak.Data.File.Text;
 //import java.util.TreeMap;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class HTTP implements Server, java.io.Serializable
+public class HTTP implements Service
 {
    Disk webData;
    Data directory;
@@ -20,6 +23,6 @@ public class HTTP implements Server, java.io.Serializable
       if(request.getName().equals("packet"))
          return webData.get(request.getBody());
       
-      return new File("packet","404");
+      return new Text("packet","404");
    }
 }

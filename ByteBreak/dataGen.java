@@ -1,5 +1,5 @@
 package ByteBreak;
-import ByteBreak.pcs.*;
+import ByteBreak.PC.*;
 import java.util.TreeMap;
 
 import java.io.*;
@@ -54,7 +54,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("ByteBreak/data/bytebox.dat");
+         new FileOutputStream("ByteBreak/savedata/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -71,7 +71,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("ByteBreak/data/inter.dat");
+         new FileOutputStream("ByteBreak/savedata/inter.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(inter);
          out.close();

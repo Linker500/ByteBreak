@@ -1,8 +1,9 @@
 //TODO find minimal importing needed.
-package ByteBreak;
-import ByteBreak.pcs.PC;
+package ByteBreak.Data;
+import ByteBreak.Network;
+import ByteBreak.PC.PC;
 import java.util.TreeMap;
-import java.util.*;
+import java.util.ArrayList;
 public interface Data extends java.io.Serializable
 {
    public int identify();

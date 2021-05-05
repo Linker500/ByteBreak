@@ -1,14 +1,14 @@
-package ByteBreak.pcs;
+package ByteBreak.PC;
 
 import java.util.TreeMap;
 
 import ByteBreak.Disk;
-import ByteBreak.Data;
-import ByteBreak.File;
-import ByteBreak.Directory;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
+import ByteBreak.Data.Directory;
 import ByteBreak.Command;
 
-import ByteBreak.servers.*;
+import ByteBreak.Service.*;
 
 public class DnsHost extends PC
 {
@@ -45,13 +45,13 @@ public class DnsHost extends PC
          disk.add("/bin/","netexp",new Command("netexp",11));
       
       disk.add("/","sys",new Directory("sys",0,0));
-         disk.add("/sys/","hostname",new File("hostname","bytebox"));
-         disk.add("/sys/","logins",new File("logins","root,toor,0,;"));
+         disk.add("/sys/","hostname",new Text("hostname","bytebox"));
+         disk.add("/sys/","logins",new Text("logins","root,toor,0,;"));
       
       disk.add("/","srv",new Directory("srv",0,0));
-         disk.add("/srv/","dns.conf",new File("dns.conf")); //TODO: implement DNS as a file that can be edited and configured
+         disk.add("/srv/","dns.conf",new Text("dns.conf")); //TODO: implement DNS as a file that can be edited and configured
    
-      servers = new TreeMap<Integer,Server>();
+      servers = new TreeMap<Integer,Service>();
       servers.put(7,new Ping());
       servers.put(52, new DNS(DnsData));
       

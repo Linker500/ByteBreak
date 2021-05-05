@@ -1,15 +1,18 @@
-package ByteBreak;
-import ByteBreak.pcs.PC;
+package ByteBreak.Data.File;
+import ByteBreak.PC.PC;
+import ByteBreak.Data.Data;
+import ByteBreak.Network;
 import java.util.TreeMap;
-import java.util.*;
-public class File implements Data
+import java.util.ArrayList;
+
+public class Text implements File
 {
-   String name;
-   int permRead;
-   int permWrite;
-   String body;
+   public String name;
+   public int permRead;
+   public int permWrite;
+   public String body;
    
-   public File()
+   public Text()
    {
       name = "new_file";
       body = "";
@@ -17,21 +20,21 @@ public class File implements Data
       permRead = 0;
    }
    
-   public File(String newName)
+   public Text(String newName)
    {
       name = newName;
       permRead = 0;
       permWrite = 0;
    }
    
-   public File(String newName, int newPermRead, int newPermWrite)
+   public Text(String newName, int newPermRead, int newPermWrite)
    {
       name = newName;
       permRead = newPermRead;
       permWrite = newPermWrite;
    }
    
-   public File(String newName, String newBody)
+   public Text(String newName, String newBody)
    {
       name = newName;
       body = newBody;
@@ -39,7 +42,7 @@ public class File implements Data
       permRead = 0;
    }
    
-   public File(String newName, String newBody, int newPermRead, int newPermWrite)
+   public Text(String newName, String newBody, int newPermRead, int newPermWrite)
    {
       name = newName;
       body = newBody;

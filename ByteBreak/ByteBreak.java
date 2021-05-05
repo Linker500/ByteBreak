@@ -7,7 +7,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ByteBreak.pcs.*;
+import ByteBreak.PC.*;
+import ByteBreak.Data.*;
 
 public class ByteBreak
 {   
@@ -182,23 +183,28 @@ public class ByteBreak
    private static void load()
    {
       inter = null;
-      try {
-         FileInputStream fileIn = new FileInputStream("ByteBreak/data/inter.dat");
+      try 
+      {
+         FileInputStream fileIn = new FileInputStream("ByteBreak/savedata/inter.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          inter = (Network) in.readObject();
          in.close();
          fileIn.close();
-      } catch (IOException i) {
+      }
+      catch (IOException i)
+      {
          i.printStackTrace();
          return;
-      } catch (ClassNotFoundException c) {
+      } 
+      catch (ClassNotFoundException c)
+      {
          c.printStackTrace();
          return;
       }
       
       userAcc = null;
       try {
-         FileInputStream fileIn = new FileInputStream("ByteBreak/data/bytebox.dat");
+         FileInputStream fileIn = new FileInputStream("ByteBreak/savedata/bytebox.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          userAcc = (ByteBoxAccount) in.readObject();
          in.close();
@@ -216,7 +222,7 @@ public class ByteBreak
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("ByteBreak/data/bytebox.dat");
+         new FileOutputStream("ByteBreak/savedata/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -231,7 +237,7 @@ public class ByteBreak
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("ByteBreak/data/inter.dat");
+         new FileOutputStream("ByteBreak/savedata/inter.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(inter);
          out.close();

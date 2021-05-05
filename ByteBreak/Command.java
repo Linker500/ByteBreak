@@ -1,8 +1,9 @@
 package ByteBreak;
 import ByteBreak.*;
-import ByteBreak.pcs.PC;
+import ByteBreak.Data.File.Text;
+import ByteBreak.PC.PC;
 import java.util.*;
-public class Command extends File
+public class Command extends Text
 {
    int command;
    

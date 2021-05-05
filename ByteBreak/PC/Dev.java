@@ -1,14 +1,14 @@
-package ByteBreak.pcs;
+package ByteBreak.PC;
 
 import java.util.TreeMap;
 
 import ByteBreak.Disk;
-import ByteBreak.Data;
-import ByteBreak.File;
-import ByteBreak.Directory;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
+import ByteBreak.Data.Directory;
 import ByteBreak.Command;
 
-import ByteBreak.servers.*;
+import ByteBreak.Service.*;
 
 public class Dev extends PC
 {
@@ -54,16 +54,16 @@ public class Dev extends PC
          disk.add("/home/","Downloads",new Directory("Downloads",1,1));
       
       disk.add("/","sys",new Directory("sys",0,0));
-         disk.add("/sys/","hostname",new File("hostname","dev"));
-         disk.add("/sys/","logins",new File("logins","root,toor,0,;user,pass,1,;"));
-         disk.add("/sys/","netconfig",new File("netconfig"));
-         disk.add("/sys/","sysKernel",new File("sysKernel"));
+         disk.add("/sys/","hostname",new Text("hostname","dev"));
+         disk.add("/sys/","logins",new Text("logins","root,toor,0,;user,pass,1,;"));
+         disk.add("/sys/","netconfig",new Text("netconfig"));
+         disk.add("/sys/","sysKernel",new Text("sysKernel"));
       
       disk.add("/","srv",new Directory("srv",0,0));
          disk.add("/srv/","http",new Directory("http",0,0));
       
-      //Servers
-      servers = new TreeMap<Integer,Server>();
+      //Services
+      servers = new TreeMap<Integer,Service>();
       servers.put(7,new Ping()); //Ping server
       servers.put(80,new HTTP(disk.get("/sys/"))); //HTTP server
       

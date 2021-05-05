@@ -22,7 +22,7 @@ jobs:
           check-latest: true
 
       - name: Compile dataGen
-        run: javac -g ByteBreak/dataGen.java && mkdir ByteBreak/data
+        run: javac -g ByteBreak/dataGen.java && mkdir ByteBreak/savedata
 
       - name: Generate data
         run: java ByteBreak/dataGen

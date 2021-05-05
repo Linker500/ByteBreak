@@ -1,5 +1,7 @@
 package ByteBreak;
 import java.util.ArrayList;
+import ByteBreak.Data.Directory;
+import ByteBreak.Data.Data;
 public class Disk implements java.io.Serializable
 {
    Data disk;

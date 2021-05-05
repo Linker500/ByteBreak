@@ -1,8 +1,10 @@
-package ByteBreak.pcs;
+package ByteBreak.PC;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
 import ByteBreak.*; //Game Utils
-import ByteBreak.servers.*;
+import ByteBreak.Service.*;
 import java.util.TreeMap;
-import java.util.*;
+import java.util.ArrayList;
 
 public abstract class PC implements java.io.Serializable
 {
@@ -14,7 +16,7 @@ public abstract class PC implements java.io.Serializable
    public ArrayList<String> prompt;
    public Disk disk;
    
-   TreeMap<Integer,Server> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
+   TreeMap<Integer,Service> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
             
    public void updateConfig()
    {
@@ -81,7 +83,7 @@ public abstract class PC implements java.io.Serializable
    {
       Data reply;
       if(servers.get(port) == null)
-         reply = new File("packet","Port access denied");
+         reply = new Text("packet","Port access denied");
       else
          reply = servers.get(port).serve(request);
       
@@ -122,19 +124,19 @@ public void dos(String user, String pass)
       disk.add("/bin/","netsv",new Command("netsv",10));
       disk.add("/bin/","netexp",new Command("netexp",11));
       
-      //TODO: make these actually do things. Should be seperate class(es) that extend File
-      disk.add("/sys/","hostname",new File("hostname"));
-      disk.add("/sys/","logins",new File("logins"));
-      disk.add("/sys/","netconfig",new File("netconfig"));
-      disk.add("/sys/","sysKernel",new File("sysKernel"));
+      //TODO: make these actually do things. Should be seperate class(es) that extend Text
+      disk.add("/sys/","hostname",new Text("hostname"));
+      disk.add("/sys/","logins",new Text("logins"));
+      disk.add("/sys/","netconfig",new Text("netconfig"));
+      disk.add("/sys/","sysKernel",new Text("sysKernel"));
       
       //User accounts
       login = new ArrayList<Login>();
       login.add(new Login("admin","pass",0)); //Default root account
       login.add(new Login(user,pass,1)); //User account
       
-      //Servers
-      servers = new TreeMap<Integer,Server>();
+      //Services
+      servers = new TreeMap<Integer,Service>();
       servers.put(7,new S_Ping()); //Ping server
    }
 
@@ -168,21 +170,21 @@ public void nixDns(TreeMap<String,String> domains)
       disk.add("/bin/","netsv",new Command("netsv",10));
       disk.add("/bin/","netexp",new Command("netexp",11));
             
-      //TODO: make these actually do things. Should be seperate class(es) that extend File
-      disk.add("/sys/","hostname",new File("hostname"));
-      disk.add("/sys/","logins",new File("logins"));
-      disk.add("/sys/","netconfig",new File("netconfig"));
-      disk.add("/sys/","sysKernel",new File("sysKernel"));
+      //TODO: make these actually do things. Should be seperate class(es) that extend Text
+      disk.add("/sys/","hostname",new Text("hostname"));
+      disk.add("/sys/","logins",new Text("logins"));
+      disk.add("/sys/","netconfig",new Text("netconfig"));
+      disk.add("/sys/","sysKernel",new Text("sysKernel"));
 
       
       //User accounts
       login = new ArrayList<Login>();
       login.add(new Login("root","toor",0)); //Default root account
       
-      //Servers
-      servers = new TreeMap<Integer,Server>();
+      //Services
+      servers = new TreeMap<Integer,Service>();
       servers.put(7,new S_Ping()); //Ping server
-      servers.put(53,new S_DNS(domains)); //DNS Server
+      servers.put(53,new S_DNS(domains)); //DNS Service
       
    }
    

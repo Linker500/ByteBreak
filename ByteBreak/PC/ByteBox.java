@@ -1,14 +1,14 @@
-package ByteBreak.pcs;
+package ByteBreak.PC;
 
 import java.util.TreeMap;
 
 import ByteBreak.Disk;
-import ByteBreak.Data;
-import ByteBreak.File;
-import ByteBreak.Directory;
+import ByteBreak.Data.Data;
+import ByteBreak.Data.File.Text;
+import ByteBreak.Data.Directory;
 import ByteBreak.Command;
 
-import ByteBreak.servers.*;
+import ByteBreak.Service.*;
 
 public class ByteBox extends PC
 {
@@ -46,12 +46,12 @@ public class ByteBox extends PC
             disk.add("/home/","Downloads",new Directory("Downloads",1,1));
             
       disk.add("/","sys",new Directory("sys",0,0));
-         disk.add("/sys/","hostname",new File("hostname","bytebox"));
-         disk.add("/sys/","logins",new File("logins","root,toor,0,;user,pass,1,;"));
+         disk.add("/sys/","hostname",new Text("hostname","bytebox"));
+         disk.add("/sys/","logins",new Text("logins","root,toor,0,;user,pass,1,;"));
       
       disk.add("/","srv",new Directory("srv",0,0));
       
-      servers = new TreeMap<Integer,Server>();
+      servers = new TreeMap<Integer,Service>();
       servers.put(7,new Ping());
       
       updateConfig();
