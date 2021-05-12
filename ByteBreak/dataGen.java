@@ -8,7 +8,7 @@ public class dataGen
    public static void main(String[] args)
    {
       ByteBoxAccount userAcc = new ByteBoxAccount(false,"0");
-      Network inter = new Network();
+      Network internet = new Network();
       
      /*\
       #.#.#.# Bad DNS
@@ -39,14 +39,14 @@ public class dataGen
       
       TreeMap<String,String> domains = new TreeMap<String,String>();
       domains.put("dns.net","1.1.1.1");
+            
+      internet.add("0",new Dev(internet));
+      internet.add("example.com",new Example(internet));
+      internet.add("test.com",new Dev(internet));
+      //internet.get("1",new ByteBox());
+      //internet.get("1.1.1.1",new DnsHost(domains));
       
-      //inter.net.put("1.1.1.1",new PC("nixDns",null,null,domains)); //DNS
-      
-      inter.net.put("0",new Dev()); //TODO: temp starter PC for testing remove this when able.
-      //inter.net.put("1",new ByteBox());
-      inter.net.put("1.1.1.1",new DnsHost(domains));
-      
-      export(userAcc,inter);
+      export(userAcc,internet);
    }
    
    private static void export(ByteBoxAccount userAcc, Network inter)

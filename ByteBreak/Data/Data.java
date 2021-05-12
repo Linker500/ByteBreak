@@ -38,8 +38,8 @@ public abstract class Data implements java.io.Serializable
       permWrite = newPermWrite;
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
-      return "";
+      return "\n";
    }
 }

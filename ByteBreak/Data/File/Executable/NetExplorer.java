@@ -4,6 +4,7 @@ import ByteBreak.PC.PC;
 import ByteBreak.Network;
 import ByteBreak.Disk;
 import ByteBreak.Data.Data;
+import ByteBreak.Data.File.File;
 import ByteBreak.util;
 
 import java.util.ArrayList;
@@ -26,12 +27,9 @@ public class NetExplorer extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
       Disk disk = pc.disk;
-      
-      Data workDir;
-      workDir = disk.get(dir);
 
       int userPerm = pc.login.get(sess).perm;
       int permRead =  pc.disk.get(dir).permRead;
@@ -40,35 +38,42 @@ public class NetExplorer extends Executable
       //TODO: this cannot be run silently unlike other programs. If not used by a human, it will still output to the human player! 
       //Perhaps add a "silent" flag?
       //Perhaps move this code somewhere else.
-      String address = "";
+      
+      Scanner in = new Scanner(System.in);
+      String address = "example.com";
       int port = 80;
-      
-      if(args.size() == 0) //w/o arguments
+      File packet = new File("packet","/index.txt/");
+      boolean loop = true;
+      while(loop)
       {
+         Data reply = pc.internet.get(address).serve(port,packet);
          util.clear();
-         Scanner in = new Scanner(System.in);
-         System.out.println("Welcome to Net Explorer!");
-         util.stop(500);
-         System.out.println("Please enter the address you wish to vist");   
-         address = in.nextLine();
-      }
-      else if(args.size() >= 2) //domain
-      {
-         address = args.get(0);
-         if(args.size() >= 2) //if port is specified
-            port = Integer.parseInt(args.get(1));
+         System.out.println("\033[1m\033[4m"+address+packet.body+"\033[0m\n");
+         System.out.println(reply.body+"\n");
+         System.out.print(">");
+         String input = in.nextLine(); 
          
-         
+         //TODO: a command parser... and a command to go to new site
+         if(input.equals("save"))
+            pc.disk.add(dir,reply.name,reply); //TODO: Move permission checking to Disk!
+         else if(input.equals("exit"))
+            loop = false;
+            
+         else
+            packet.body = input;
       }
       
-      return "\n";
+      return "";
+      
+      
+      //return pc.internet.get(address).serve(port, );
       
       //TODO, implement DNS when added
       
       /*
       try
       {
-         PC target = inter.net.get(address);
+         PC target = pc.internet.get(address);
          
          try{return target.serve(port);}
          catch(Exception e){return "Error: Access to port " + port + " denied!";}

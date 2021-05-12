@@ -25,8 +25,8 @@ public class Directory extends Data
       data = new TreeMap<String,Data>();
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
-      return ": Is a directory";
+      return ": Is a directory\n";
    }
 }

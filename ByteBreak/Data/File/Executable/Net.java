@@ -26,7 +26,7 @@ public class Net extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess) //TODO: save returned file
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess) //TODO: save returned file
    {
       Disk disk = pc.disk;
       
@@ -52,7 +52,7 @@ public class Net extends Executable
       
       String address = args.get(0);
       
-      PC target = inter.net.get(args.get(0));
+      PC target = pc.internet.get(args.get(0));
       if(target == null)
          return "net: host " + address + " not found\n";
       
@@ -60,7 +60,7 @@ public class Net extends Executable
       try{port = Integer.parseInt(args.get(1));}
       catch(Exception e){return "net: " + args.get(1) + " not a valid port\n";}
       
-      Data reply = inter.net.get(address).serve(port,request);
+      Data reply = pc.internet.get(address).serve(port,request);
       reply.permRead = userPerm;
       reply.permWrite = userPerm;
       workDir.data.put(reply.name,reply);

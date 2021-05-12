@@ -12,7 +12,7 @@ import ByteBreak.Data.*;
 
 public class ByteBreak
 {   
-   static Network inter;
+   static Network internet;
    static ByteBoxAccount userAcc;
    
    public static void main(String[] args)
@@ -55,7 +55,7 @@ public class ByteBreak
    private static void connect()
    {
       util.clear();
-      Shell shell = new Shell(inter);
+      Shell shell = new Shell(internet);
       shell.start(userAcc.ip);
       save();
       return;
@@ -84,7 +84,7 @@ public class ByteBreak
             util.stop(10000);
             System.out.println("Sorry for the wait, your logins are:");
             util.stop(1000);
-            ArrayList<Login> login = inter.net.get(userAcc.ip).login;
+            ArrayList<Login> login = internet.get(userAcc.ip).login;
             for(int i=0; i<login.size(); i++)
             {
                System.out.println(i+": "+login.get(i).user+" "+login.get(i).pass);
@@ -122,7 +122,7 @@ public class ByteBreak
                   System.out.println("Alright, just remember we warned you...");
                   util.stop(2000);
                   System.out.println("Formating ByteBox... This will take a moment.");
-                  inter.net.remove(userAcc.ip);
+                  internet.del(userAcc.ip);
                   userAcc.firstTime = true;
                   save();
                   util.stop(20000);
@@ -165,9 +165,9 @@ public class ByteBreak
       
       String ipAddress = ipGen();
       userAcc.ip = ipAddress;
-      PC pc = new ByteBox(); //Generate PC
+      PC pc = new ByteBox(internet); //Generate PC
       pc.disk.get("/sys/logins/").body = "root,toor,0,;"+user+","+pass+","+"1,;";
-      inter.net.put(ipAddress,pc); //add PC
+      internet.add(ipAddress,pc); //add PC
       
       
       util.stop(30000);
@@ -182,12 +182,12 @@ public class ByteBreak
    //TODO: make clean error message if save file is not found.
    private static void load()
    {
-      inter = null;
+      internet = null;
       try
       {
          FileInputStream fileIn = new FileInputStream("ByteBreak/savedata/inter.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         inter = (Network) in.readObject();
+         internet = (Network) in.readObject();
          in.close();
          fileIn.close();
       }
@@ -239,7 +239,7 @@ public class ByteBreak
          FileOutputStream fileOut = 
          new FileOutputStream("ByteBreak/savedata/inter.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(inter);
+         out.writeObject(internet);
          out.close();
          fileOut.close();
       }

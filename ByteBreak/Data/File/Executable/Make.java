@@ -25,7 +25,7 @@ public class Make extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
       Disk disk = pc.disk;
       
@@ -43,17 +43,17 @@ public class Make extends Executable
          return "mk: Write access to " + workDir.name + " denied\n";
       
       if(args.size() == 0)
-         workDir.data.put("new_file",new File());
+         workDir.data.put("new_file",new File("new_file",userPerm,userPerm));
       else if(args.size() == 1)
-         workDir.data.put(args.get(0),new File(args.get(0)));
+         workDir.data.put(args.get(0),new File(args.get(0),userPerm,userPerm));
       else if(args.size() == 2)
-         workDir.data.put(args.get(0),new File(args.get(0),args.get(1)));
+         workDir.data.put(args.get(0),new File(args.get(0),args.get(1),userPerm,userPerm));
       else if(args.size() > 2)
       {
-         String edit = args.get(1);
+         String text = args.get(1);
          for(int j=2; j<args.size(); j++)
-            edit+=(" "+args.get(j));
-         workDir.data.get(args.get(0)).body = edit;
+            text+=(" "+args.get(j));
+         workDir.data.put(args.get(0),new File(args.get(0),text,userPerm,userPerm));
       }
       return "";
    }

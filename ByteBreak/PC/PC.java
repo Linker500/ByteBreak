@@ -3,6 +3,7 @@ import ByteBreak.Data.Data;
 import ByteBreak.Data.File.File;
 import ByteBreak.*; //Game Utils
 import ByteBreak.Service.*;
+import ByteBreak.Network;
 import java.util.TreeMap;
 import java.util.ArrayList;
 
@@ -14,10 +15,16 @@ public abstract class PC implements java.io.Serializable
    
    public ArrayList<Login> login;
    public ArrayList<String> prompt;
-   public Disk disk;
+   public Disk disk;   
+   public Network internet;
    
-   TreeMap<Integer,Service> servers; //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
-            
+   public TreeMap<Integer,Service> servers = new TreeMap<Integer,Service>(); //TODO: associate with config files or something? Even if it is super hacky allow someone to nuke a server by deleting the system file.
+   
+   public PC(Network newInternet)
+   {
+      internet = newInternet;
+   }
+   
    public void updateConfig()
    {
       //Update hostname

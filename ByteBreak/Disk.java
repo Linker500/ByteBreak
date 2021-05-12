@@ -46,6 +46,12 @@ public class Disk implements java.io.Serializable
       Data directory = get(path);
       directory.data.put(name,newData);
    }
+   
+   public void add(ArrayList<String> path, String name, Data newData) //Directory string version
+   { //TODO: safety check if file!!!!
+      Data directory = get(path);
+      directory.data.put(name,newData);
+   }
 
    
    //Retrive files

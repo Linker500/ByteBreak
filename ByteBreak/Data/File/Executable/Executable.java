@@ -30,7 +30,7 @@ public abstract class Executable extends File
       body = newBody;
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, Network inter, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
       return "";
    }

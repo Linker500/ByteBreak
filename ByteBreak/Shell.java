@@ -78,7 +78,7 @@ public class Shell
          }
          
          //Check if /bin exist.
-         if(pc.disk.get("/bin/") == null)
+         if(pc.disk.get("/bin/") == null) //TODO: base this off of kernel file or something instead of hard coding
             System.out.println("Error: Directory \"/bin/\" not found");
          
          //Command Validity and Execution
@@ -87,7 +87,7 @@ public class Shell
             if(pc.disk.get("/bin/"+command+"/") == null)
                System.out.println(command+": command not found");
             else
-               System.out.print(pc.disk.get("/bin/"+command+"/").run(dir,pc,args,inter,sess));
+               System.out.print(pc.disk.get("/bin/"+command+"/").run(dir,pc,args,sess));
          }
       }
    }
