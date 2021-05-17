@@ -9,6 +9,7 @@ import ByteBreak.util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class NetExplorer extends Executable
 {
@@ -51,16 +52,35 @@ public class NetExplorer extends Executable
          System.out.println("\033[1m\033[4m"+address+packet.body+"\033[0m\n");
          System.out.println(reply.body+"\n");
          System.out.print(">");
-         String input = in.nextLine(); 
          
-         //TODO: a command parser... and a command to go to new site
-         if(input.equals("save"))
-            pc.disk.add(dir,reply.name,reply); //TODO: Move permission checking to Disk!
-         else if(input.equals("exit"))
+         //Command parsing
+         ArrayList<String> args2 = new ArrayList<String>();
+         {
+            String input = in.nextLine();
+            Collections.addAll(args2,input.split(" "));
+         }
+         String command = args2.get(0);
+         args2.remove(0);
+         
+         if(command.equals("goto"))
+         {
+            if(args2.size() > 0)
+            {
+               address = args2.get(0);
+               packet.body = "/index.txt/";
+            }
+         }
+         else if(command.equals("save"))
+         {            
+            if(args2.size() > 0)
+               pc.disk.add(dir,args2.get(0),reply);
+            else
+               pc.disk.add(dir,reply.name,reply); //TODO: permission checking at disk
+         }
+         else if(command.equals("exit"))
             loop = false;
-            
          else
-            packet.body = input;
+            packet.body = command;
       }
       
       return "";

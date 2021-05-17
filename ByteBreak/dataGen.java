@@ -38,13 +38,11 @@ public class dataGen
      \*/
       
       TreeMap<String,String> domains = new TreeMap<String,String>();
-      domains.put("dns.net","1.1.1.1");
+      domains.put("example.com","2");
             
       internet.add("0",new Dev(internet));
-      internet.add("example.com",new Example(internet));
-      internet.add("test.com",new Dev(internet));
-      //internet.get("1",new ByteBox());
-      //internet.get("1.1.1.1",new DnsHost(domains));
+      internet.add("1",new DnsHost(internet, domains));
+      internet.add("2",new Example(internet));
       
       export(userAcc,internet);
    }

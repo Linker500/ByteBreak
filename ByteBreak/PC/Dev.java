@@ -33,6 +33,7 @@ public class Dev extends PC
       disk = new Disk();
       
       disk.add("/","bin",new Directory("bin",1,0));
+         disk.add("/bin/","bash", new Bash("bash",1,0));
          disk.add("/bin/","ls",new List("ls",1,0));
          disk.add("/bin/","cd",new ChangeDirectory("cd",1,0)); 
          disk.add("/bin/","clear",new Clear("clear",1,0));
