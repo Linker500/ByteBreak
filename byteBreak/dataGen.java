@@ -52,7 +52,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("byteBreak/savedata/bytebox.dat");
+         new FileOutputStream("byteBreak/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -69,7 +69,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("byteBreak/savedata/internet.dat");
+         new FileOutputStream("byteBreak/internet.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(internet);
          out.close();
