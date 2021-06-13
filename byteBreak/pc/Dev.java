@@ -21,6 +21,7 @@ public class Dev extends Onyx
    private void generate()
    {
       //System Info
+      os = "ByteBreak Developer System v1.3.3.7";
       //ipv4 = new int[]{192,168,1,1};
       
       //prompt.add("["+pc.login.get(sess.get(0)).user+"@"+pc.host+"]# ");
@@ -36,7 +37,6 @@ public class Dev extends Onyx
          disk.add("/home/","Downloads",new Directory("Downloads",1,1));
       
       disk.get("/sys/logins/").body = "root,toor,0,;user,pass,1,;";
-      disk.get("/sys/hostname/").body = "Dev";
       disk.add("/sys/","netconfig",new File("netconfig"));
       disk.add("/sys/","sysKernel",new File("sysKernel"));
       

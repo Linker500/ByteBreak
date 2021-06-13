@@ -4,8 +4,8 @@ import byteBreak.data.Directory;
 import byteBreak.data.Data;
 public class Disk implements java.io.Serializable
 {
-   private Data disk = new Directory("",1,0);
-      
+   Data disk;
+   
    public Disk()
    {
       disk = new Directory("root",1,0);
@@ -28,29 +28,44 @@ public class Disk implements java.io.Serializable
       Data directory = get(path);
       directory.data.put(name,newData);
    }
-      
+   
+   public void add(ArrayList<String> path, String name, Data newData) //Directory string version
+   { //TODO: safety check if file!!!!
+      Data directory = get(path);
+      directory.data.put(name,newData);
+   }
+
+   
    //Retrive files
    public Data get(String[] path)
    {
       Data directory = disk;
+      
 
-      for(int i=0; i<path.length-1; i++) //TODO: add safety if directory does not exist or is a file!!!!
+      for(int i=0; i<path.length; i++) //TODO: add safety if directory does not exist or is a file!!!!
       {
-         //System.out.println(i + " " + path[i]);
-         //directory = directory.data.get("/bin/");
          directory = directory.data.get(path[i]);
       }
+      
       return directory;
    }
    
    public Data get(String pathString) //Directory string version
    {
-      if(pathString.equals("/"))
-      {
-         return disk;
-      }
       String[] path = parsePath(pathString);
       return get(path);
+   }
+   
+   public Data get(ArrayList<String> path) //TODO: hopefully temperary when I clean up the run() command in script.java
+   {
+      Data directory = disk;
+
+      for(int i=0; i<path.size(); i++)
+      {
+         directory = directory.data.get(path.get(i));
+      }
+      
+      return directory;
    }
    
    //public show displayDir //Displays specific directory
@@ -74,7 +89,7 @@ public class Disk implements java.io.Serializable
          }
       }
       
-      String[] output = new String[indexes.size()];
+      String[] output = new String[indexes.size()-1];
       for(int i=0; i<indexes.size()-1; i++)
          output[i] = input.substring(indexes.get(i)+1,indexes.get(i+1));
       
