@@ -3,7 +3,7 @@ package byteBreak.data.file.executable;
 import byteBreak.data.file.File;
 import byteBreak.pc.PC;
 import byteBreak.Network;
-import byteBreak.util;
+import byteBreak.Util;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,6 @@ public class Clear extends Executable
    
    public String run(ArrayList<String> dir, PC pc, ArrayList<String> args, int sess)
    {
-      return util.ANSICLEAR;
+      return Util.ANSICLEAR;
    }
 }

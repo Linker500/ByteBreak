@@ -6,24 +6,6 @@ public class Disk implements java.io.Serializable
 {
    Data disk;
    
-//    public static void main(String[] args)
-//    {
-//       /*
-//       String[] test = parsePath("/home/stuart/Desktop/pr0n/");
-//       
-//       for(int i=0; i<test.length; i++)
-//          System.out.print("o "+test[i]+" C");
-//       */
-//       //PC test = new PC("bytebox","user","pass",null);
-//       //Disk test = new Disk();
-//       //test.add("/","test",new File("test"));
-//       
-//       String[] test = parsePath("/test/cap/");
-//       
-//       for(int i=0; i<test.length; i++)
-//          System.out.println(test[i]);
-//    }
-   
    public Disk()
    {
       disk = new Directory("root",1,0);

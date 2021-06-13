@@ -5,7 +5,7 @@ import byteBreak.Network;
 import byteBreak.Disk;
 import byteBreak.data.Data;
 import byteBreak.data.file.File;
-import byteBreak.util;
+import byteBreak.Util;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -48,7 +48,7 @@ public class NetExplorer extends Executable
       while(loop)
       {
          Data reply = pc.internet.get(address).serve(port,packet);
-         util.clear();
+         Util.clear();
          System.out.println("\033[1m\033[4m"+address+packet.body+"\033[0m\n");
          System.out.println(reply.body+"\n");
          System.out.print(">");
