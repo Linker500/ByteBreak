@@ -41,19 +41,18 @@ public class dataGen
       domains.put("example.com","2");
             
       internet.add("0",new Dev(internet));
-      //internet.add("1",new DnsHost(internet, domains));
-      //internet.add("2",new Example(internet));
+      internet.add("1",new DnsHost(internet, domains));
+      internet.add("2",new Example(internet));
       
       export(userAcc,internet);
    }
    
-   //TODO: Nuke this and put bytebox information on a server ingame
    private static void export(ByteBoxAccount userAcc, Network internet)
    {
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("bytebox.dat");
+         new FileOutputStream("byteBreak/bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -62,7 +61,7 @@ public class dataGen
       }
       catch (IOException i)
       {
-         //i.printStackTrace();
+         i.printStackTrace();
          System.out.println(" AccountGen Export FAILED!");
       }
       
@@ -70,7 +69,7 @@ public class dataGen
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("internet.dat");
+         new FileOutputStream("byteBreak/internet.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(internet);
          out.close();
@@ -79,7 +78,7 @@ public class dataGen
       }
       catch (IOException i)
       {
-         //i.printStackTrace();
+         i.printStackTrace();
          System.out.println("InternetGen Export FAILED!");
       }
    }

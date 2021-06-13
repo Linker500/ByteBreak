@@ -26,7 +26,7 @@ public class Net extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(String dir, PC pc,ArrayList<String> args, int sess) //TODO: save returned file
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess) //TODO: save returned file
    {
       Disk disk = pc.disk;
       

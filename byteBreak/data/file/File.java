@@ -34,7 +34,7 @@ public class File extends Data
       body = newBody;
    }
    
-   public String run(String dir, PC pc, ArrayList<String> args, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
       return ": Is a file\n";
    }

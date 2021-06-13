@@ -25,7 +25,7 @@ public class ChangeDirectory extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(String dir, PC pc,ArrayList<String> args, int sess)
+   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
    {
       Disk disk = pc.disk;
       
@@ -38,8 +38,8 @@ public class ChangeDirectory extends Executable
       
       if(args.size() == 0)
       {
-//          if(dir.size() > 0)
-//             dir.remove(dir.size()-1);
+         if(dir.size() > 0)
+            dir.remove(dir.size()-1);
          return "";
       }
       else if(args.size() > 0)
@@ -51,7 +51,7 @@ public class ChangeDirectory extends Executable
          if(workDir.data.get(args.get(0)).permRead < userPerm)
             return "cd: Read access to " + args.get(0) + " denied\n";
          
-         dir+=args.get(0);
+         dir.add(args.get(0));
          return "";
       }
       return "cd: Unknown Error\n";
