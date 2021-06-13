@@ -1,3 +1,4 @@
+//TODO: nuke this and put this on a bytebox server ingame
 package byteBreak;
 public class ByteBoxAccount implements java.io.Serializable
 {

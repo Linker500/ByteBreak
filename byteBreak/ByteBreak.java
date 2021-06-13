@@ -185,7 +185,7 @@ public class ByteBreak
       internet = null;
       try
       {
-         FileInputStream fileIn = new FileInputStream("byteBreak/internet.dat");
+         FileInputStream fileIn = new FileInputStream("internet.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          internet = (Network) in.readObject();
          in.close();
@@ -204,21 +204,15 @@ public class ByteBreak
       
       userAcc = null;
       try {
-         FileInputStream fileIn = new FileInputStream("byteBreak/bytebox.dat");
+         FileInputStream fileIn = new FileInputStream("bytebox.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          userAcc = (ByteBoxAccount) in.readObject();
          in.close();
          fileIn.close();
-      }
-      
-      catch (IOException i)
-      {
+      } catch (IOException i) {
          i.printStackTrace();
          return;
-      }
-      
-      catch (ClassNotFoundException c)
-      {
+      } catch (ClassNotFoundException c) {
          c.printStackTrace();
          return;
       }
@@ -228,7 +222,7 @@ public class ByteBreak
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("byteBreak/bytebox.dat");
+         new FileOutputStream("bytebox.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(userAcc);
          out.close();
@@ -239,11 +233,10 @@ public class ByteBreak
          i.printStackTrace();
       }
       
-      
       try
       {
          FileOutputStream fileOut = 
-         new FileOutputStream("byteBreak/internet.dat");
+         new FileOutputStream("internet.dat");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
          out.writeObject(internet);
          out.close();

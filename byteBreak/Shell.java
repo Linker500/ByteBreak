@@ -12,7 +12,6 @@ public class Shell
 {
    Network internet;
    int sess = -1;
-   ArrayList<String> dir = new ArrayList<String>();
    
    public Shell(Network newInternet)
    {
@@ -55,7 +54,8 @@ public class Shell
    {
       //TODO: holy crap this is sucky please make better
       //Read sys config file or something for default shell
-      ArrayList<String> args = new ArrayList<String>(); 
+      ArrayList<String> args = new ArrayList<String>();
+      String dir = new String();
       pc.disk.get("/bin/bash/").run(dir,pc,args,sess);
    }
 }

@@ -24,7 +24,7 @@ public class Move extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public String run(String dir, PC pc,ArrayList<String> args, int sess)
    {
       Disk disk = pc.disk;
       

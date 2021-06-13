@@ -19,9 +19,7 @@ public class Onyx extends PC
    }
          
    private void generate()
-   {
-      os = "Onyx";
-      
+   {      
       disk = new Disk();
       disk.add("/","bin",new Directory("bin",1,0));
          disk.add("/bin/","bash", new Bash("bash",1,0));

@@ -27,7 +27,7 @@ public class Bash extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public String run(String dir, PC pc,ArrayList<String> args, int sess)
    {
       Scanner in = new Scanner(System.in);
       boolean loop = true;
