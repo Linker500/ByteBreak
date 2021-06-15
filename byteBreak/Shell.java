@@ -12,6 +12,7 @@ public class Shell
 {
    Network internet;
    int sess = -1;
+   PC pc = null;
    ArrayList<String> dir = new ArrayList<String>();
    
    public Shell(Network newInternet)
@@ -21,10 +22,12 @@ public class Shell
    
    public void start(String target)
    {
-      PC pc = internet.get(target);
-      pc.updateConfig();
-      if(login(pc))
-         input(pc);
+      try {
+         pc = internet.get(target);
+         pc.updateConfig();
+         if(login(pc))
+            input(pc);
+      } catch (NullPointerException t) {}
    }
    
    public boolean login(PC pc)
