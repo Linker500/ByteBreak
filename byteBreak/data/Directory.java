@@ -3,6 +3,7 @@ import byteBreak.pc.PC;
 import java.util.TreeMap;
 import java.util.ArrayList;
 import byteBreak.Network;
+import byteBreak.Shell;
 public class Directory extends Data
 {
    //TODO be able to access folders by their string names instead of index!!!
@@ -25,8 +26,8 @@ public class Directory extends Data
       data = new TreeMap<String,Data>();
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      return ": Is a directory\n";
+      shell.output(": Is a directory\n");
    }
 }

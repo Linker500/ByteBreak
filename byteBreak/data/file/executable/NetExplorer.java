@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -28,9 +29,12 @@ public class NetExplorer extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
 
       int userPerm = pc.login.get(sess).perm;
       int permRead =  pc.disk.get(dir).permRead;
@@ -49,9 +53,9 @@ public class NetExplorer extends Executable
       {
          Data reply = pc.internet.get(address).serve(port,packet);
          Util.clear();
-         System.out.println("\033[1m\033[4m"+address+packet.body+"\033[0m\n");
-         System.out.println(reply.body+"\n");
-         System.out.print(">");
+         shell.output("\033[1m\033[4m"+address+packet.body+"\033[0m\n\n"); //TODO: ANSI sequences must be in shell
+         shell.output(reply.body+"\n\n");
+         shell.output(">");
          
          //Command parsing
          ArrayList<String> args2 = new ArrayList<String>();
@@ -81,10 +85,7 @@ public class NetExplorer extends Executable
             loop = false;
          else
             packet.body = command;
-      }
-      
-      return "";
-      
+      }      
       
       //return pc.internet.get(address).serve(port, );
       

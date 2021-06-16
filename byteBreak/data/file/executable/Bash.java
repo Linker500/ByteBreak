@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -27,13 +28,16 @@ public class Bash extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
       Scanner in = new Scanner(System.in);
       boolean loop = true;
+      PC pc = shell.pc;
+      int sess = Shell.sess;
+      
       while(loop)
       {
-         System.out.print("["+pc.login.get(sess).user+"@"+pc.host+"]# "); //TODO: this should be a variable per PC.
+         System.out.print("["+pc.login.get(Shell.sess).user+"@"+pc.host+"]# "); //TODO: this should be a variable per PC.
          
          //Parsing
          String command;
@@ -55,17 +59,16 @@ public class Bash extends Executable
          
          //Check if /bin exist.
          if(pc.disk.get("/bin/") == null) //TODO: base this off of kernel file or something instead of hard coding
-            System.out.println("Error: Directory \"/bin/\" not found");
+            shell.output("Error: Directory \"/bin/\" not found\n");
          
          //Command Validity and Execution
          else
          {
             if(pc.disk.get("/bin/"+command+"/") == null)
-               System.out.println(command+": command not found");
+               shell.output(command+": command not found");
             else
-               System.out.print(pc.disk.get("/bin/"+command+"/").run(dir,pc,args2,sess));
+               pc.disk.get("/bin/"+command+"/").run(shell,args2);
          }
       }
-      return "";
    }
 }

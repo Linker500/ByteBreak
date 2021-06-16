@@ -1,10 +1,10 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
 import byteBreak.data.Data;
-import byteBreak.Shell;
 
 import java.util.ArrayList;
 
@@ -25,13 +25,16 @@ public class Remote extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc, ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
       if(args.size() == 0)
-         return "ssh: Missing target system argument";
+         shell.output("ssh: Missing target system argument"); //TODO: hard coded name bad
       
-      Shell shell = new Shell(pc.internet);
-      shell.start(args.get(0));
-      return "Connection closed\n";
+      else
+      {
+         Shell newShell = new Shell(shell.internet, args.get(0), false);
+         newShell.start();
+         shell.output("Connection closed\n");
+      }
    }
 }

@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -24,24 +25,30 @@ public class List extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
-      workDir = disk.get(dir);
+      workDir = disk.get(Shell.dir);
       
-      int userPerm = pc.login.get(sess).perm;
-      int permRead =  pc.disk.get(dir).permRead;
-      int permWrite = pc.disk.get(dir).permWrite;
+      int userPerm = pc.login.get(Shell.sess).perm;
+      int permRead =  pc.disk.get(Shell.dir).permRead;
+      int permWrite = pc.disk.get(Shell.dir).permWrite;
       
       String output = "";
       if(workDir.data.size() == 0)
-         return output;
+         shell.output(output);
       
-      for (String i : workDir.data.keySet())
-         output += i + " ";
+      else
+      {
+         for (String i : workDir.data.keySet())
+            output += i + " ";
       
-      return output+"\n";
+         shell.output(output+"\n");
+      }
    }
 }

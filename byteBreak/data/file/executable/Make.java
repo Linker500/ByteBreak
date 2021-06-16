@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -25,9 +26,12 @@ public class Make extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -37,12 +41,12 @@ public class Make extends Executable
       int permWrite = pc.disk.get(dir).permWrite;
 
       if(args.size() == 0)
-         return "cat: Missing target argument\n";
+         shell.output("cat: Missing target argument\n");
       
-      if(permWrite < userPerm)
-         return "mk: Write access to " + workDir.name + " denied\n";
+      else if(permWrite < userPerm)
+         shell.output("mk: Write access to " + workDir.name + " denied\n");
       
-      if(args.size() == 0)
+      else if(args.size() == 0)
          workDir.data.put("new_file",new File("new_file",userPerm,userPerm));
       else if(args.size() == 1)
          workDir.data.put(args.get(0),new File(args.get(0),userPerm,userPerm));
@@ -55,6 +59,5 @@ public class Make extends Executable
             text+=(" "+args.get(j));
          workDir.data.put(args.get(0),new File(args.get(0),text,userPerm,userPerm));
       }
-      return "";
    }
 }

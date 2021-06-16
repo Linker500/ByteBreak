@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -24,9 +25,12 @@ public class Concat extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -36,16 +40,18 @@ public class Concat extends Executable
       int permWrite = pc.disk.get(dir).permWrite;
 
       if(args.size() == 0)
-         return "cat: Missing target argument\n";
-      
-      String output = "";
-      for(int i=0; i<args.size(); i++)
+         shell.output("cat: Missing target argument\n");
+      else
       {
-         if(workDir.data.get(args.get(i)).permRead < userPerm)
-            output += "cat: Read access to " + args.get(i) + " denied\n";
-         else
-            output += workDir.data.get(args.get(i)).body+"\n";
+         String output = "";
+         for(int i=0; i<args.size(); i++)
+         {
+            if(workDir.data.get(args.get(i)).permRead < userPerm)
+               output += "cat: Read access to " + args.get(i) + " denied\n";
+            else
+               output += workDir.data.get(args.get(i)).body+"\n";
+         }
+         shell.output(output);
       }
-      return output;
    }
 }

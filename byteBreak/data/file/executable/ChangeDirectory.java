@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -25,9 +26,12 @@ public class ChangeDirectory extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -40,20 +44,17 @@ public class ChangeDirectory extends Executable
       {
          if(dir.size() > 0)
             dir.remove(dir.size()-1);
-         return "";
       }
       else if(args.size() > 0)
       {
          if(workDir.data.get(args.get(0)) == null)
-            return "cd: No such directory\n";
-         if(!(workDir.data.get(args.get(0)) instanceof Directory))
-            return "cd: " + args.get(0) + ": Not a directory\n";
-         if(workDir.data.get(args.get(0)).permRead < userPerm)
-            return "cd: Read access to " + args.get(0) + " denied\n";
-         
-         dir.add(args.get(0));
-         return "";
+            shell.output("cd: No such directory\n");
+         else if(!(workDir.data.get(args.get(0)) instanceof Directory))
+            shell.output("cd: " + args.get(0) + ": Not a directory\n");
+         else if(workDir.data.get(args.get(0)).permRead < userPerm)
+            shell.output("cd: Read access to " + args.get(0) + " denied\n");
+         else
+            dir.add(args.get(0));
       }
-      return "cd: Unknown Error\n";
    }
 }

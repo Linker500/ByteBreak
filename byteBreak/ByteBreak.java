@@ -55,8 +55,8 @@ public class ByteBreak
    private static void connect()
    {
       Util.clear();
-      Shell shell = new Shell(internet);
-      shell.start(userAcc.ip);
+      Shell shell = new Shell(internet, userAcc.ip, false);
+      shell.start();
       save();
       return;
    }

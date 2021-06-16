@@ -4,6 +4,7 @@ import byteBreak.data.Data;
 import byteBreak.Network;
 import java.util.TreeMap;
 import java.util.ArrayList;
+import byteBreak.Shell;
 
 public class File extends Data
 {
@@ -34,8 +35,8 @@ public class File extends Data
       body = newBody;
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      return ": Is a file\n";
+      shell.output(": Is a file\n");
    }
 }

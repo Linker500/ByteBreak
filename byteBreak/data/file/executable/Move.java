@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -24,9 +25,12 @@ public class Move extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -36,26 +40,28 @@ public class Move extends Executable
       int permWrite = pc.disk.get(dir).permWrite;
 
       if(args.size() == 0)
-         return "cat: Missing target argument\n";
+         shell.output("cat: Missing target argument\n");
       
       if(workDir.data.get(args.get(0)).permRead < userPerm)
-         return "mv: Read access to " + args.get(0) + " denied\n";
+         shell.output("mv: Read access to " + args.get(0) + " denied\n");
       
-      if(workDir.data.get(args.get(0)).permWrite < userPerm)
-         return "mv: Write access to " + args.get(0) + " denied\n";
+      else if(workDir.data.get(args.get(0)).permWrite < userPerm)
+         shell.output("mv: Write access to " + args.get(0) + " denied\n");
       
-      if(workDir.permWrite < userPerm)
-         return "mv: Write access to " + workDir.name + " denied\n";
+      else if(workDir.permWrite < userPerm)
+         shell.output("mv: Write access to " + workDir.name + " denied\n");
       
-      if(args.size() <2)
+      else if(args.size() <2)
       {
          if(args.size() == 1)
-            return "mv: Missing destination file argument.\n";
-         if(args.size() == 0)
-            return "mv: Missing file argument.\n";
+            shell.output("mv: Missing destination file argument.\n");
+         else if(args.size() == 0)
+            shell.output("mv: Missing file argument.\n");
       }
-      workDir.data.put(args.get(1),workDir.data.get(args.get(0)));
-      workDir.data.remove(args.get(0));
-      return "";
+      else
+      {
+         workDir.data.put(args.get(1),workDir.data.get(args.get(0)));
+         workDir.data.remove(args.get(0));
+      }
    }
 }

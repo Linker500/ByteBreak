@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -24,9 +25,12 @@ public class Remove extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -36,17 +40,19 @@ public class Remove extends Executable
       int permWrite = pc.disk.get(dir).permWrite;
 
       if(args.size() == 0)
-         return "rm: Missing target parameter\n";
+         shell.output("rm: Missing target parameter\n");
       
-      String output = "";
-      for(int i=0; i<args.size(); i++)
+      else
       {
-         if(workDir.data.get(args.get(i)).permWrite < userPerm)
-            output += "rm: Write access to " + args.get(i) + " denied\n";
-         else
-            workDir.data.remove(args.get(i));
+         String output = "";
+         for(int i=0; i<args.size(); i++)
+         {
+            if(workDir.data.get(args.get(i)).permWrite < userPerm)
+               output += "rm: Write access to " + args.get(i) + " denied\n";
+            else
+               workDir.data.remove(args.get(i));
+         }
+         shell.output(output);
       }
-      
-      return output;
    }
 }

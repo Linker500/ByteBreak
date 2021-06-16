@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.pc.PC;
 import byteBreak.Network;
 import byteBreak.Disk;
@@ -26,9 +27,12 @@ public class Net extends Executable
       super(newName,newPermRead,newPermWrite);
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess) //TODO: save returned file
+   public void run(Shell shell, ArrayList<String> args) //TODO: save returned file
    {
-      Disk disk = pc.disk;
+      PC pc = shell.pc;
+      Disk disk = shell.pc.disk;
+      ArrayList<String> dir = Shell.dir;
+      int sess = Shell.sess;
       
       Data workDir;
       workDir = disk.get(dir);
@@ -38,32 +42,40 @@ public class Net extends Executable
       if(args.size() < 3)
       {
          if(args.size() == 0)
-            return "net: Missing target argument\n";
-         if(args.size() == 1)
-            return "net: Missing port argument\n";
-         if(args.size() == 2)
-            return "net: Missing request argument\n";
+            shell.output("net: Missing target argument\n");
+         else if(args.size() == 1)
+            shell.output("net: Missing port argument\n");
+         else if(args.size() == 2)
+            shell.output("net: Missing request argument\n");
       }
       
-      if(workDir.permWrite < userPerm)
-         return "net: Write access to " + workDir.name + " denied\n";
-
-      Data request = new File("packet",args.get(2));
+      else if(workDir.permWrite < userPerm)
+         shell.output("net: Write access to " + workDir.name + " denied\n");
       
-      String address = args.get(0);
-      
-      PC target = pc.internet.get(args.get(0));
-      if(target == null)
-         return "net: host " + address + " not found\n";
-      
-      int port;
-      try{port = Integer.parseInt(args.get(1));}
-      catch(Exception e){return "net: " + args.get(1) + " not a valid port\n";}
-      
-      Data reply = pc.internet.get(address).serve(port,request);
-      reply.permRead = userPerm;
-      reply.permWrite = userPerm;
-      workDir.data.put(reply.name,reply);
-      return reply.body+"\n";
+      else
+      {
+         Data request = new File("packet",args.get(2));
+         
+         String address = args.get(0);
+         
+         PC target = pc.internet.get(args.get(0));
+         if(target == null)
+            shell.output("net: host " + address + " not found\n");
+         
+         int port;
+         
+         try
+         {
+            port = Integer.parseInt(args.get(1));
+            
+            Data reply = pc.internet.get(address).serve(port,request);
+            reply.permRead = userPerm;
+            reply.permWrite = userPerm;
+            workDir.data.put(reply.name,reply);
+            
+            shell.output(reply.body+"\n");
+         }
+         catch(Exception e) {shell.output("net: " + args.get(1) + " not a valid port\n");}
+      }
    }
 }

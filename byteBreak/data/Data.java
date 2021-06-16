@@ -1,5 +1,6 @@
 //TODO find minimal importing needed.
 package byteBreak.data;
+import byteBreak.Shell;
 import byteBreak.Network;
 import byteBreak.pc.PC;
 import java.util.TreeMap;
@@ -38,8 +39,8 @@ public abstract class Data implements java.io.Serializable
       permWrite = newPermWrite;
    }
    
-   public String run(ArrayList<String> dir, PC pc,ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      return "\n";
+      
    }
 }

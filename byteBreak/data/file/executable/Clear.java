@@ -1,5 +1,6 @@
 package byteBreak.data.file.executable;
 
+import byteBreak.Shell;
 import byteBreak.data.file.File;
 import byteBreak.pc.PC;
 import byteBreak.Network;
@@ -30,8 +31,8 @@ public class Clear extends Executable
       body = newBody;
    }
    
-   public String run(ArrayList<String> dir, PC pc, ArrayList<String> args, int sess)
+   public void run(Shell shell, ArrayList<String> args)
    {
-      return Util.ANSICLEAR;
+      shell.output(shell.clear);
    }
 }

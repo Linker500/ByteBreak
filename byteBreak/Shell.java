@@ -10,27 +10,32 @@ import java.util.Collections;
 
 public class Shell
 {
-   Network internet;
-   int sess = -1;
-   PC pc = null;
-   ArrayList<String> dir = new ArrayList<String>();
+   public boolean quiet; //Controls whether shell output is ignored or not.
+   public String clear = "\033[H\033[2J"; //TODO: perhaps set this per ANSI support; 
+   public static int sess;
+   public Network internet;
+   public PC pc = null;
+   public static ArrayList<String> dir = new ArrayList<String>();
    
-   public Shell(Network newInternet)
+   public Shell(Network newInternet, String target, boolean newQuiet) //TODO: can we reduce or simplify the paramets passed here?
    {
       internet = newInternet;
-   }
-   
-   public void start(String target)
-   {
-      try {
+      quiet = newQuiet;
+      try
+      {
          pc = internet.get(target);
          pc.updateConfig();
-         if(login(pc))
-            input(pc);
-      } catch (NullPointerException t) {}
+      }
+      catch (NullPointerException t) {} //TODO: what to do on failure?
    }
    
-   public boolean login(PC pc)
+   public void start()
+   {
+      if(login(pc))
+         input(pc);
+   }
+   
+   private boolean login(PC pc)
    {
       boolean loop = true;
       Scanner in = new Scanner(System.in);
@@ -54,11 +59,17 @@ public class Shell
       }
    }
    
-   public void input(PC pc)
+   private void input(PC pc) //TODO: headless ("quiet") inputs?
    {
       //TODO: holy crap this is sucky please make better
       //Read sys config file or something for default shell
       ArrayList<String> args = new ArrayList<String>(); 
-      pc.disk.get("/bin/bash/").run(dir,pc,args,sess);
+      pc.disk.get("/bin/bash/").run(this, args);
    }
+   
+   public void output(String string)
+   {
+      if(!quiet)
+         System.out.print(string);
+   } 
 }
