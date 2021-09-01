@@ -1,6 +1,6 @@
 # ByteBreak
-Personal shitcode game
-THIS PROJECT IS NOT END USER READY!!!
+Personal project garbage ""game""
+This is not user ready, nor is it fun.
 
 ## Running
 
