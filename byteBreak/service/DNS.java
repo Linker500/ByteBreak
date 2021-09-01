@@ -1,13 +1,14 @@
 package byteBreak.service;
 import byteBreak.data.Data;
 import byteBreak.data.file.File;
-import java.util.TreeMap;
+
+import java.util.HashMap;
 
 public class DNS implements Service
 {
-   TreeMap<String,String> domains = new TreeMap<String,String>();
+   HashMap<String,String> domains = new HashMap<String,String>();
    
-   public DNS(TreeMap<String,String> newDomains)
+   public DNS(HashMap<String,String> newDomains)
    {
       domains = newDomains;
    }

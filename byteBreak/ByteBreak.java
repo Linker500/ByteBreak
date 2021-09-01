@@ -15,6 +15,8 @@ public class ByteBreak
    static Network internet;
    static ByteBoxAccount userAcc;
    
+   static final String ANSICLEAR = "\033[H\033[2J"; //TODO: this is for clearing in BASH... perhaps auto select it for other systems?
+   
    public static void main(String[] args)
    {
       load();
@@ -25,7 +27,7 @@ public class ByteBreak
          setup();
          
          Scanner in = new Scanner(System.in);
-         Util.clear();
+         clear();
          System.out.println("Welcome to ByteBox! What would you like to do?");
          Util.stop(500);
          System.out.println("1. Connect to my ByteBox");
@@ -54,7 +56,7 @@ public class ByteBreak
    
    private static void connect()
    {
-      Util.clear();
+      clear();
       Shell shell = new Shell(internet, userAcc.ip, false);
       shell.start();
       save();
@@ -65,9 +67,9 @@ public class ByteBreak
    {
       while(true)
       {
-         Util.clear();
+         clear();
          Scanner in = new Scanner(System.in);
-         Util.clear();
+         clear();
          System.out.println("How would you like to Manage your ByteBox?");
          Util.stop(500);
          System.out.println("1. Recover my ByteBox login.");
@@ -79,7 +81,7 @@ public class ByteBreak
          
          if(input.equals("1")) //Passwords are stored in plain text... kek //Perhaps limit how many times passwords can be recovered before format? "Live" system.
          {
-            Util.clear();
+            clear();
             System.out.println("We are fetching your login. Please wait a moment.");
             Util.stop(10000);
             System.out.println("Sorry for the wait, your logins are:");
@@ -98,7 +100,7 @@ public class ByteBreak
          }
          else if(input.equals("2"))
          {
-            Util.clear();
+            clear();
             System.out.println("Are you ABSOLUTELY SURE you want to format your ByteBox?");
             Util.stop(2000);
             System.out.println("ALL DATA WILL BE LOST.");
@@ -146,7 +148,7 @@ public class ByteBreak
    private static void setup()
    {
       Scanner in = new Scanner(System.in);
-      Util.clear();
+      clear();
       System.out.println("Congratulations on subscribing to your new ByteBox cloud computer!");
       Util.stop(2500);
       System.out.println("This setup wizard will help you get your new system up and running.");
@@ -203,7 +205,8 @@ public class ByteBreak
       }
       
       userAcc = null;
-      try {
+      try
+      {
          FileInputStream fileIn = new FileInputStream("byteBreak/bytebox.dat");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          userAcc = (ByteBoxAccount) in.readObject();
@@ -264,4 +267,6 @@ public class ByteBreak
       int d = (int)(Math.random()*256);
       return (a+"."+b+"."+c+"."+d);
    }
+   
+   private static void clear(){System.out.print(ANSICLEAR);}
 }

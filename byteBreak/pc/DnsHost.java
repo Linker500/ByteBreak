@@ -8,11 +8,11 @@ import byteBreak.data.file.executable.*;
 import byteBreak.Network;
 import byteBreak.service.*;
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 public class DnsHost extends Onyx
 {
-   TreeMap<String,String> DnsData;
+   HashMap<String,String> DnsData;
    
    public DnsHost(Network newInternet)
    {
@@ -20,7 +20,7 @@ public class DnsHost extends Onyx
       generate();
    }
    
-   public DnsHost(Network newInternet, TreeMap<String,String> newDnsData)
+   public DnsHost(Network newInternet, HashMap<String,String> newDnsData)
    {
       super(newInternet);
       DnsData = newDnsData;

@@ -68,7 +68,7 @@ public abstract class PC implements java.io.Serializable
       }      
       
       //Update netconfig (DNS and whatnot)
-      //dns = disk.get("/sys/netconfig").body;
+      dns = disk.get("/sys/netconfig").body;
       
       //Update system name (sysKernel) //TODO: perhaps have certain kernels lock/unlock features? Or maybe one upload a malicious kernel to anothers computer that is vulnerable?
       /*unimplemented*/

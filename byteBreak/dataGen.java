@@ -1,48 +1,48 @@
 package byteBreak;
 import byteBreak.pc.*;
-import java.util.TreeMap;
+import java.util.HashMap;
 
 import java.io.*;
 public class dataGen
 {
    public static void main(String[] args)
    {
-      ByteBoxAccount userAcc = new ByteBoxAccount(false,"0");
+      ByteBoxAccount userAcc = new ByteBoxAccount(false,"1.3.3.7");
       Network internet = new Network();
       
      /*\
-      #.#.#.# Bad DNS
-      1.1.1.1 Normal DNS
-      9.9.9.9 "good" dns
+     
+         Internet Organization (0.0.0.X)
+      0.0.0.0 inter.net
+      0.0.0.1 example.com
       
-      #.#.#.# example.com
+      1.1.1.1 Generic DNS
       
-      #.#.#.# website that says blocked
+         ByteBox (3.8.X.X)
+      3.8.0.0 BB central
+      3.8.0.1 bytebox.net
+      3.8.0.3 BB DNS (have blocked page?)
+      3.8.1-9.X ByteBoxes
       
-      #.#.#.# user machine
-      #.#.#.# generic other machine
+      1.3.3.7 Dev system
       
-      #.#.#.# bytebox website
-      #.#.#.# bytebox central
-      #.#.#.# bytebox box management
-      
+         To implement
       #.#.#.# "Mozilla website"
       #.#.#.# "Google website"
-      #.#.#.# "Microsoft website"
       
       #.#.#.# Email server
       #.#.#.# email website
-      
-      #.#.#.# ISP website
-      #.#.#.# ISP control server
      \*/
       
-      TreeMap<String,String> domains = new TreeMap<String,String>();
-      domains.put("example.com","2");
+      HashMap<String,String> domains = new HashMap<String,String>();
+      domains.put("inter.net","0.0.0.0");
+      domains.put("example.com","0.0.0.1");
+      domains.put("bytebox.net","3.8.0.3");
+      //domains.put("","");
             
-      internet.add("0",new Dev(internet));
-      internet.add("1",new DnsHost(internet, domains));
-      internet.add("2",new Example(internet));
+      internet.add("1.3.3.7",new Dev(internet));
+      internet.add("1.1.1.1",new DnsHost(internet, domains));
+      internet.add("0.0.0.1",new Example(internet));
       
       export(userAcc,internet);
    }

@@ -3,6 +3,7 @@ import byteBreak.pc.PC;
 import java.util.TreeMap;
 public class Network implements java.io.Serializable
 {
+   //TODO: make internet a hashmap
    //TODO: add things like a method to generate new ip address
    public TreeMap<String,PC> net;
    

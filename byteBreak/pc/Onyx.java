@@ -7,8 +7,6 @@ import byteBreak.data.file.executable.*;
 import byteBreak.Network;
 import byteBreak.service.*;
 
-import java.util.TreeMap;
-
 //DEFAULT UNIX BOX
 public class Onyx extends PC
 {   
@@ -20,7 +18,7 @@ public class Onyx extends PC
          
    private void generate()
    {
-      os = "Onyx";
+      os = "Onyx 1.0";
       
       disk = new Disk();
       disk.add("/","bin",new Directory("bin",1,0));
@@ -37,6 +35,7 @@ public class Onyx extends PC
          disk.add("/bin/","ssh",new Remote("ssh",1,0));
       
       disk.add("/","sys",new Directory("sys",0,0));
+         disk.add("/sys/","netconfig",new File("netconfig","1.1.1.1"));
          disk.add("/sys/","hostname",new File("hostname","Onyx"));
          disk.add("/sys/","logins",new File("logins","root,toor,0,;"));
    

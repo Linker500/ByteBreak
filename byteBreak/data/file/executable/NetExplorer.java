@@ -45,7 +45,7 @@ public class NetExplorer extends Executable
       //Perhaps move this code somewhere else.
       
       Scanner in = new Scanner(System.in);
-      String address = "example.com";
+      String address = "0.0.0.1";
       int port = 80;
       File packet = new File("packet","/index.txt/");
       boolean loop = true;
@@ -68,9 +68,10 @@ public class NetExplorer extends Executable
          
          if(command.equals("goto"))
          {
-            if(args2.size() > 0)
+            if(args2.size() > 0) //TODO: hardcoded for DNS
             {
-               address = args2.get(0);
+               //address = pc.internet.get(pc.dns).serve(52,args2.get(0)).body; //DNS?
+               address = args2.get(0); //ip address
                packet.body = "/index.txt/";
             }
          }
