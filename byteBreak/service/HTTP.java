@@ -18,7 +18,10 @@ public class HTTP implements Service
    
    //TODO: IMPLEMENT SOME FORMS OF HTTP CODES?
    public Data serve(Data request)
-   {      
+   {
+      Data packet = webData.get(request.body);
+      if(packet == null)
+         return new File("packet","Error: Page not found");
       return webData.get(request.body); //TODO implement HTTP codes into body. Write parser
    }
 }

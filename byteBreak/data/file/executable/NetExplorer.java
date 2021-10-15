@@ -51,13 +51,19 @@ public class NetExplorer extends Executable
       boolean loop = true;
       while(loop)
       {
-         Data reply = pc.internet.get(address).serve(port,packet);
+         Data reply;
+         if(pc.internet.get(address) == null) //TODO make PC method to get network stuff? pc.internet.get(0 and pc.lan.get() vs pc.lan() and pc.internet() [wan?]
+            reply = new File("packet","Connection timed out.");
+         else
+            reply = pc.internet.get(address).serve(port,packet);
+            
          Util.clear();
          shell.output("\033[1m\033[4m"+address+packet.body+"\033[0m\n\n"); //TODO: ANSI sequences must be in shell
          shell.output(reply.body+"\n\n");
          shell.output(">");
+            
          
-         //Command parsing
+         //Command parsing //TODO: only single directory works atm. Add support for "vertical" movement in the filesystem. dns.com/abc/bcd/gay.txt Commands like "up" are needed.
          ArrayList<String> args2 = new ArrayList<String>();
          {
             String input = in.nextLine();
@@ -75,17 +81,21 @@ public class NetExplorer extends Executable
                packet.body = "/index.txt/";
             }
          }
-         else if(command.equals("save"))
+         else if(command.equals("save")) //TODO: save as?
          {            
             if(args2.size() > 0)
                pc.disk.add(dir,args2.get(0),reply);
             else
                pc.disk.add(dir,reply.name,reply); //TODO: permission checking at disk
          }
+         else if(command.equals("help"))
+         {
+            
+         }
          else if(command.equals("exit"))
             loop = false;
          else
-            packet.body = command;
+            packet.body = "/" + command + "/"; //TODO: this is a quick fix to not have the program die on misinput.
       }      
       
       //return pc.internet.get(address).serve(port, );

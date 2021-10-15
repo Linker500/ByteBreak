@@ -19,6 +19,7 @@ public class ByteBreak
    
    public static void main(String[] args)
    {
+      //test();
       load();
       boolean loop = true;
       while(loop)
@@ -269,4 +270,14 @@ public class ByteBreak
    }
    
    private static void clear(){System.out.print(ANSICLEAR);}
+   
+   private static void test() //TODO: temperary thingy for testing
+   {
+      System.out.println("Testing...");
+      //load();
+      while(true)
+      {
+         
+      }
+   }
 }
